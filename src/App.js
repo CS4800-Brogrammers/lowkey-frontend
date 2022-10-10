@@ -2,6 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import axios from "axios";
 import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 // const baseURL = "http://127.0.0.1:8000/garrett/"
 const baseURL = "https://jsonplaceholder.typicode.com/posts/1"
@@ -21,7 +23,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
+        <p> 
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <p>
@@ -35,8 +37,14 @@ function App() {
         >
           Learn React
         </a>
+        <p>
+          <button type= "button" class= "btn btn-secondary">
+            Sample Button
+          </button>
+        </p>
       </header>
     </div>
+    
   );
 }
 
