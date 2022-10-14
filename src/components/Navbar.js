@@ -8,15 +8,16 @@ import {
   AiOutlineShoppingCart,
   AiOutlineSearch,
 } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const LowkeyNavbar = () => {
   return (
-    <Navbar expand = "sm">
+    <Navbar expand="sm">
       <Container>
         <Navbar.Brand href="/">Lowkey</Navbar.Brand>
         <Navbar.Toggle />
-        <Navbar.Collapse id = "basic-navbar-nav" className="justify-content-end">
-          <Nav className="me-auto justify-content-center" >
+        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+          <Nav className="me-auto justify-content-center">
             <Form className="d-flex">
               <Form.Control
                 type="search"
@@ -30,13 +31,13 @@ const LowkeyNavbar = () => {
             </Form>
           </Nav>
           <Nav>
-            <Nav.Link href="Create" className = "nav-link active">
+            <Nav.Link as={Link} to="/Create">
               <AiOutlineShop size={30} />
             </Nav.Link>
-            <Nav.Link href = "User">
+            <Nav.Link as={Link} to="/User">
               <AiOutlineUser size={30} />
             </Nav.Link>
-            <Nav.Link href = "Cart">
+            <Nav.Link as={Link} to="/Cart">
               <AiOutlineShoppingCart size={30} />
             </Nav.Link>
           </Nav>
