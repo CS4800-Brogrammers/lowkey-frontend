@@ -1,8 +1,7 @@
 import { Button, Form } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
-// import Nav from "react-bootstrap/Nav";
+import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-// import NavDropdown from "react-bootstrap/NavDropdown";
 import {
   AiOutlineShop,
   AiOutlineUser,
@@ -13,21 +12,32 @@ const LowkeyNavbar = () => {
   return (
     <Navbar>
       <Container>
-        <Navbar.Brand href="#home">Lowkey</Navbar.Brand>
+        <Navbar.Brand href="/">Lowkey</Navbar.Brand>
         <Navbar.Toggle />
-        <Form className="d-flex">
-          <Form.Control
-            type="search"
-            placeholder="Search"
-            className="me-2"
-            aria-label="Search"
-          />
-          <Button variant="outline-success">Search</Button>
-        </Form>
+
         <Navbar.Collapse className="justify-content-end">
-          <AiOutlineShop size={30} />
-          <AiOutlineUser size={30} />
-          <AiOutlineShoppingCart size={30} />
+          <Nav className="me-auto">
+            <Form className="d-flex">
+              <Form.Control
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                aria-label="Search"
+              />
+              <Button variant="outline-success">Search</Button>
+            </Form>
+          </Nav>
+          <Nav>
+            <Nav.Link>
+              <AiOutlineShop size={30} />
+            </Nav.Link>
+            <Nav.Link>
+              <AiOutlineUser size={30} />
+            </Nav.Link>
+            <Nav.Link>
+              <AiOutlineShoppingCart size={30} />
+            </Nav.Link>
+          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
