@@ -14,7 +14,9 @@ const LowkeyNavbar = () => {
   return (
     <Navbar expand="sm">
       <Container>
-        <Navbar.Brand href="/">Lowkey</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">
+          Lowkey
+        </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav className="me-auto justify-content-center">
