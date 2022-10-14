@@ -6,6 +6,7 @@ import {
   AiOutlineShop,
   AiOutlineUser,
   AiOutlineShoppingCart,
+  AiOutlineSearch,
 } from "react-icons/ai";
 
 const LowkeyNavbar = () => {
@@ -24,7 +25,9 @@ const LowkeyNavbar = () => {
                 className="me-2"
                 aria-label="Search"
               />
-              <Button variant="outline-success">Search</Button>
+              <Button variant="outline-success">
+                <AiOutlineSearch size={30} />
+              </Button>
             </Form>
           </Nav>
           <Nav>
