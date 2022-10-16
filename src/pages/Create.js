@@ -1,5 +1,11 @@
+import axios from "axios";
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 const Create = () => {
-  return <div>Work in progress (Create Page)</div>;
+  return (
+    <h1>Work in progress, Create Page</h1>
+  );
 };
 
 export default Create;
