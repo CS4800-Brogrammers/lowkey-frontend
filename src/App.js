@@ -7,6 +7,7 @@ import Cart from "./pages/Cart";
 import User from "./pages/User";
 import LowkeyNavbar from "./components/Navbar";
 import Product from "./pages/Product";
+import Error from "./components/Error";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/cart" element={<Cart />}></Route>
           <Route path="/user" element={<User />}></Route>
           <Route path="/product/:id" element={<Product />}></Route>
+          <Route path="*" element={<Error />}></Route>
         </Routes>
       </Router>
     </div>
