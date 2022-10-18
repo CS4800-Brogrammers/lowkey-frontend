@@ -12,7 +12,7 @@ const ProductCard = () => {
             <Card.Img variant = "top" src = {img1}/>
             <Card.Body>
                 <Container>
-                    <Card.Title>Pink Cake</Card.Title>
+                    <Card.Title>Chocolate Cake</Card.Title>
                     <Row>
                         <Col>
                             <Card.Text>$21.99</Card.Text>
