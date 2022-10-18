@@ -33,10 +33,9 @@ const LowkeyNavbar = () => {
                 type="search"
                 placeholder="Search"
                 className="me-2"
-                aria-label="Search"
-                onClick = {() => setActivePage("Search")} 
+                aria-label="Search" 
               />
-              <Button variant="outline-success">
+              <Button variant="outline-success" onClick = {() => setActivePage("Search")}>
                 <AiOutlineSearch size={30} />
               </Button>
             </Form>
