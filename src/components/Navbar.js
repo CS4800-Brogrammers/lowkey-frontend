@@ -1,3 +1,4 @@
+import React, {useState} from 'react';
 import { Button, Form } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -11,21 +12,29 @@ import {
 import { Link } from "react-router-dom";
 
 const LowkeyNavbar = () => {
+  const [activePage, setActivePage] = useState(null);
+
   return (
     <Navbar expand="sm">
       <Container>
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand 
+        as={Link} 
+        to="/"
+        onClick = {() => setActivePage("/")} 
+        className = {activePage === "Create" ? 'active' : 'inactive'}
+        >
           Lowkey
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-          <Nav className="me-auto justify-content-center">
+          <Nav className="ml-2">
             <Form className="d-flex">
               <Form.Control
                 type="search"
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
+                onClick = {() => setActivePage("Search")} 
               />
               <Button variant="outline-success">
                 <AiOutlineSearch size={30} />
@@ -33,13 +42,28 @@ const LowkeyNavbar = () => {
             </Form>
           </Nav>
           <Nav>
-            <Nav.Link as={Link} to="/Create">
+            <Nav.Link 
+              as={Link} 
+              to="/Create" 
+              onClick = {() => setActivePage("Create")} 
+              className = {activePage === "Create" ? 'active' : 'inactive'}
+              >
               <AiOutlineShop size={30} />
             </Nav.Link>
-            <Nav.Link as={Link} to="/User">
+            <Nav.Link 
+              as={Link} 
+              to="/User" 
+              onClick = {() => setActivePage("User")}
+              className = {activePage === "User" ? 'active' : 'inactive'}
+              >
               <AiOutlineUser size={30} />
             </Nav.Link>
-            <Nav.Link as={Link} to="/Cart">
+            <Nav.Link 
+              as={Link} 
+              to="/Cart" 
+              onClick = {() => setActivePage("Cart")}
+              className = {activePage === "Cart" ? 'active' : 'inactive'}
+              >
               <AiOutlineShoppingCart size={30} />
             </Nav.Link>
           </Nav>
