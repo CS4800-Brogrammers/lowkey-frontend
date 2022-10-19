@@ -7,3 +7,4 @@ const Home = () => {
 };
 
 export default Home;
+//use axios to get each card info denoted by id. pass all this info as props to each card 

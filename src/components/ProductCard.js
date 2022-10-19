@@ -7,11 +7,13 @@ import {Container, Row, Col} from "react-bootstrap";
 import StarRating from './StarRating'
 
 const ProductCard = () => {
+
+
     return( 
         <Card style = {{width: '18rem'}}>
             <Card.Img variant = "top" src = {img1}/>
             <Card.Body>
-                <Container>
+                <Container className = "mt-100">
                     <Card.Title>Chocolate Cake</Card.Title>
                     <Row>
                         <Col>
@@ -21,11 +23,9 @@ const ProductCard = () => {
                             <StarRating/>
                         </Col>
                     </Row>
-                    
                     <Card.Text>Garrett's Bakery</Card.Text>
                 </Container>
-                
-                {/* <a href = "/product/:id" className = "stretched-link"></a> */}
+                <a href = "/product/:id" className = "stretched-link" data-testid = "link"></a>
             </Card.Body>
         </Card>
     );
