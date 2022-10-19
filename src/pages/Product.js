@@ -3,6 +3,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import Placeholder from "../images/placeholder.svg";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import Error from "../components/Error";
+import Loading from "../components/Loading";
 
 const Product = () => {
   const [product, setProduct] = useState(null);
@@ -22,10 +24,20 @@ const Product = () => {
         setErrorMessage(error.message);
       })
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [url]);
 
-  if (isLoading) return <div>Loading...</div>;
-  else if (errorMessage) return <div>{errorMessage}</div>;
+  if (isLoading)
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
+  else if (errorMessage)
+    return (
+      <div>
+        <Error />
+      </div>
+    );
 
   return (
     <div>
