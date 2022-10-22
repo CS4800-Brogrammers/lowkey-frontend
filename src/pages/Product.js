@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import Placeholder from "../images/placeholder.svg";
+import Placeholder from "../images/image_placeholder.jpg";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Error from "../components/Error";
@@ -10,6 +10,7 @@ import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import styles from "./Product.module.css";
 const {
   mainContainer,
+  productImage,
   productHeader,
   productText,
   productRowSpacing,
@@ -54,10 +55,10 @@ const Product = () => {
     <div className={mainContainer}>
       <Container className="mt-5">
         <Row>
-          <Col>
-            <img src={Placeholder} alt="product"></img>
+          <Col sm={6} className="d-flex align-items-center  ">
+            <img className={productImage} src={Placeholder} alt="product"></img>
           </Col>
-          <Col>
+          <Col sm={6} className="d-flex align-items-center">
             <Container className={productText}>
               <Row className={productHeader}>
                 <Row>{product.product_name}</Row> <Row>${product.price}</Row>
