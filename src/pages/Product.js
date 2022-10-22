@@ -29,7 +29,6 @@ const Product = () => {
     axios
       .get(url)
       .then((response) => {
-        console.log(response.data);
         setProduct(response.data);
       })
       .catch((error) => {
@@ -68,21 +67,23 @@ const Product = () => {
               <Row className={productRowSpacing}>
                 <Col>
                   <div className={addToCartCounter}>
-                    <div
+                    <Button
+                      variant="danger"
                       className={counterButton}
                       onClick={() =>
                         setCounter(counter - 1 <= 0 ? 0 : counter - 1)
                       }
                     >
-                      <AiOutlineMinus />
-                    </div>
+                      <AiOutlineMinus size={20} />
+                    </Button>
                     <div>{counter}</div>
-                    <div
+                    <Button
+                      variant="success"
                       className={counterButton}
                       onClick={() => setCounter(counter + 1)}
                     >
-                      <AiOutlinePlus />
-                    </div>
+                      <AiOutlinePlus size={20} />
+                    </Button>
                   </div>
                 </Col>
                 <Col>
