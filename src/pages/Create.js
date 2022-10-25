@@ -30,6 +30,11 @@ const Create = () => {
     .finally(()=> {setIsLoading(false)
       navigate("/")})
   }
+  const handleChange= (event) =>{
+    setformValue(
+    {...formValue, [event.target.id]: event.target.value})
+  }
+
   if(isLoading){
     return(
       <div>
@@ -38,13 +43,6 @@ const Create = () => {
     )
   }
   
-  const handleChange= (event) =>{
-    setformValue(
-    {...formValue, [event.target.id]: event.target.value})
-  }
-
-
-
   return (
     <div>
       <Container>
