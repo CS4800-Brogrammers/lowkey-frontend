@@ -1,11 +1,53 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import {Container, Row, Col, Button} from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css";
 import Form from 'react-bootstrap/Form'
 import { InputGroup } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import Loading from "./components/Loading";
 
 const Create = () => {
+  const navigate= useNavigate();
+  const[formValue, setformValue]= useState({
+    name:'',
+    price:'',
+    description:''
+  });
+  const[isLoading, setIsLoading]= useState(false);
+
+  const handleSubmit=(event) =>{
+    event.preventDefault();
+    setIsLoading(true)
+    axios.post('http://127.0.0.1:8000/product/', {
+      product_name: formValue.name,
+      price:formValue.price,
+      description:formValue.description
+    })
+    .then(() => {
+      navigate("/");
+    })
+    .catch((error)=>{
+      <Error></Error>
+    })
+    .finally(()=> {setIsLoading(false)
+      navigate("/")})
+  }
+  if(isLoading){
+    return(
+      <div>
+        <Loading/>
+      </div>
+    )
+  }
+  
+  const handleChange= (event) =>{
+    setformValue(
+    {...formValue, [event.target.id]: event.target.value})
+  }
+
+
+
   return (
     <div>
       <Container>
@@ -15,19 +57,23 @@ const Create = () => {
 
           </Col>
           <Col>
-            <Form>
-              <Form.Group controlId="formProdName">
+            <Form onSubmit={handleSubmit}>
+              <Form.Group >
                 <Form.Label> Product Name</Form.Label>
-                <Form.Control as= "input" placeholder="Enter product name" />
+                <Form.Control as= "input" placeholder="Enter product name" id= "name" value={formValue.name} 
+                onChange={handleChange}/>
               </Form.Group>
               <Form.Label> Product Price </Form.Label>
+
               <InputGroup className="mb-3">
                 <InputGroup.Text>$</InputGroup.Text>
-                <Form.Control aria-label="formProdPrice" />
+                <Form.Control aria-label="formProdPrice" id= "price" value={formValue.price} onChange={handleChange}/>
               </InputGroup>
-              <Form.Group controlId="formProdDescr">
+          
+              <Form.Group>
                 <Form.Label> Product Description </Form.Label>
-                <Form.Control as="textarea" aria-label="With textarea"  />
+                <Form.Control as="textarea" aria-label="With textarea" id= "description" value={formValue.description} 
+                onChange={handleChange}/>
               </Form.Group>
               <Button variant="primary" type="submit">
                 Create
