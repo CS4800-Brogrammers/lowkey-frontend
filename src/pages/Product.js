@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import Error from "../components/Error";
 import Loading from "../components/Loading";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
+import StarRating from "../components/StarRating"
 
 import styles from "./Product.module.css";
 const {
@@ -64,7 +65,7 @@ const Product = () => {
                 <Row>{product.product_name}</Row> <Row>${product.price}</Row>
               </Row>
               <Row className={productRowSpacing}>Brogrammers</Row>
-              <Row className={productRowSpacing}>Rating</Row>
+              <StarRating/>
               <Row className={productRowSpacing}>
                 <Col>
                   <div className={addToCartCounter}>

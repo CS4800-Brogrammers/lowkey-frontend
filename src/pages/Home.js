@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {Container} from "react-bootstrap";
+import {Container, Row, Col} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ProductCard from "../components/ProductCard";
 
@@ -15,7 +15,7 @@ const Home = () => {
   const productsURL = "http://127.0.0.1:8000/product/1/?format=json";
   useEffect(() => {
     axios.get(productsURL).then((response) => {
-      setId(response.data['id']); 
+      setId(response.data['product_id']); 
       setProductName(response.data['product_name']);
       setPrice(response.data['price']);
       setRating("5");
@@ -25,6 +25,9 @@ const Home = () => {
   
   return(
     <Container> 
+      <Row >
+        <Col className = "h2 fst-italic fw-light my-5 ">Connecting small businesses to you </Col>
+      </Row>
       <ProductCard id = {id} title = {productName} price = {price} rating = {rating} shop = {shop}/>
     </Container>
 

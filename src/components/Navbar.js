@@ -15,7 +15,7 @@ const LowkeyNavbar = () => {
   const [activePage, setActivePage] = useState(null);
 
   return (
-    <Navbar expand="sm">
+    <Navbar expand="sm" className = "mb-4 pb-3 border-bottom">
       <Container>
         <Navbar.Brand 
         as={Link} 
@@ -27,7 +27,7 @@ const LowkeyNavbar = () => {
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-          <Nav className="ml-2">
+          <Nav>
             <Form className="d-flex">
               <Form.Control
                 type="search"

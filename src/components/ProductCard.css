@@ -1,0 +1,9 @@
+.cardWidth {
+    width: 15rem; 
+}
+.imgHeight {
+    height: 15rem; 
+}
+.cardShadowHover:hover {
+    box-shadow: 0px 2px 2px 0 rgba(0, 0, 0, 0.2), 0px 2px 10px rgba(0, 0, 0, 0.2)
+}
