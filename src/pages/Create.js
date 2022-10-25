@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Form from 'react-bootstrap/Form'
 import { InputGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import Loading from "./components/Loading";
+import Loading from "../components/Loading";
 
 const Create = () => {
   const navigate= useNavigate();
@@ -24,11 +24,8 @@ const Create = () => {
       price:formValue.price,
       description:formValue.description
     })
-    .then(() => {
-      navigate("/");
-    })
     .catch((error)=>{
-      <Error></Error>
+      //implement error handling later
     })
     .finally(()=> {setIsLoading(false)
       navigate("/")})
