@@ -53,7 +53,7 @@ const Create = () => {
           </Col>
           <Col>
             <Form onSubmit={handleSubmit}>
-              <Form.Group >
+              <Form.Group className ="mb-3">
                 <Form.Label> Product Name</Form.Label>
                 <Form.Control as= "input" placeholder="Enter product name" id= "name" value={formValue.name} 
                 onChange={handleChange}/>
@@ -65,7 +65,7 @@ const Create = () => {
                 <Form.Control aria-label="formProdPrice" id= "price" value={formValue.price} onChange={handleChange}/>
               </InputGroup>
           
-              <Form.Group>
+              <Form.Group className= "mb-3">
                 <Form.Label> Product Description </Form.Label>
                 <Form.Control as="textarea" aria-label="With textarea" id= "description" value={formValue.description} 
                 onChange={handleChange}/>
