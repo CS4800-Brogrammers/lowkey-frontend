@@ -8,6 +8,7 @@ import User from "./pages/User";
 import LowkeyNavbar from "./components/Navbar";
 import Product from "./pages/Product";
 import Error from "./components/Error";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
