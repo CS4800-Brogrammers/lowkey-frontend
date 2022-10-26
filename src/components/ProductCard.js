@@ -4,9 +4,11 @@ import React from 'react';
 import img1 from '../images/chocolate_cake.jpg'; 
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Container, Row, Col} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import StarRating from './StarRating'
 import "./ProductCard.css";
+
+// import Product from '../pages/Product';
 
 const ProductCard = (props) => {
     const productLink = `product/${props.id}`;
@@ -26,7 +28,7 @@ const ProductCard = (props) => {
                     </Row>
                     <Card.Text>{props.shop}</Card.Text>
                 </Container>
-                <Link to = {productLink} className = "stretched-link" data-testid = "link"/>
+                <Link to = {productLink} className = "stretched-link"/>
             </Card.Body>
         </Card>
     );

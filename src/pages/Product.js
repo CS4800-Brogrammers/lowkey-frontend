@@ -8,6 +8,9 @@ import Loading from "../components/Loading";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import StarRating from "../components/StarRating"
 
+
+import img1 from '../images/chocolate_cake.jpg'; 
+
 import styles from "./Product.module.css";
 const {
   mainContainer,
@@ -19,7 +22,7 @@ const {
   counterButton,
 } = styles;
 
-const Product = () => {
+const Product = (props) => {
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -57,7 +60,7 @@ const Product = () => {
       <Container className="mt-5">
         <Row>
           <Col sm={6} className="d-flex align-items-center  ">
-            <img className={productImage} src={Placeholder} alt="product"></img>
+            <img className={productImage} src={img1} alt="product"></img>
           </Col>
           <Col sm={6} className="d-flex align-items-center">
             <Container className={productText}>
