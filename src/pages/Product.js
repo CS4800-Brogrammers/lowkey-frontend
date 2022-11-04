@@ -1,17 +1,16 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import Placeholder from "../images/image_placeholder.jpg";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Error from "../components/Error";
 import Loading from "../components/Loading";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
-import StarRating from "../components/StarRating"
+import StarRating from "../components/StarRating";
 
-
-import img1 from '../images/chocolate_cake.jpg'; 
+import img1 from "../images/chocolate_cake.jpg";
 
 import styles from "./Product.module.css";
+import Delete from "../components/Delete";
 const {
   mainContainer,
   productImage,
@@ -20,19 +19,40 @@ const {
   productRowSpacing,
   addToCartCounter,
   counterButton,
+  button,
 } = styles;
 
 const Product = (props) => {
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [deleteRequest, setDeleteRequest] = useState(false);
   const [counter, setCounter] = useState(1);
   const { id } = useParams();
-  const url = `http://127.0.0.1:8000/product/${id}/?format=json`;
+
+  const navigate = useNavigate();
+  const getProductURL = `http://127.0.0.1:8000/product/${id}/?format=json`;
+  const deleteProductURL = `http://127.0.0.1:8000/product/${id}/`;
+
+  const handleCancel = () => {
+    setDeleteRequest(false);
+  };
+
+  const handleDelete = () => {
+    axios
+      .delete(deleteProductURL)
+      .catch((error) => {
+        setErrorMessage(error.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
+        navigate("/");
+      });
+  };
 
   useEffect(() => {
     axios
-      .get(url)
+      .get(getProductURL)
       .then((response) => {
         setProduct(response.data);
       })
@@ -40,7 +60,7 @@ const Product = (props) => {
         setErrorMessage(error.message);
       })
       .finally(() => setIsLoading(false));
-  }, [url]);
+  }, [getProductURL]);
 
   if (isLoading)
     return (
@@ -54,7 +74,13 @@ const Product = (props) => {
         <Error />
       </div>
     );
-
+  else if (deleteRequest) {
+    return (
+      <div>
+        <Delete handleCancel={handleCancel} handleDelete={handleDelete} />
+      </div>
+    );
+  }
   return (
     <div className={mainContainer}>
       <Container className="mt-5">
@@ -68,7 +94,7 @@ const Product = (props) => {
                 <Row>{product.product_name}</Row> <Row>${product.price}</Row>
               </Row>
               <Row className={productRowSpacing}>Brogrammers</Row>
-              <StarRating/>
+              <StarRating />
               <Row className={productRowSpacing}>
                 <Col>
                   <div className={addToCartCounter}>
@@ -99,6 +125,17 @@ const Product = (props) => {
                 Desciption: {product.description}
               </Row>
               {/* <Row>Extra Information</Row> */}
+              <Row
+                className={`${productRowSpacing} d-flex justify-content-center`}
+              >
+                <Button
+                  className={button}
+                  variant="danger"
+                  onClick={() => setDeleteRequest(true)}
+                >
+                  Delete
+                </Button>
+              </Row>
             </Container>
           </Col>
         </Row>

@@ -34,3 +34,7 @@
 .counterButton:hover {
   cursor: pointer;
 }
+
+.button {
+  width: 5rem;
+}
