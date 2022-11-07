@@ -1,0 +1,12 @@
+/* .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+.upload {
+    border: 2px black dashed;
+    padding: 30px;
+    width: 60%; 
+    cursor: pointer; 
+    margin: 5px auto; 
+}
