@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form'
 import { InputGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
+import PhotoUploader from "../components/PhotoUploader";
 
 const Create = () => {
   const navigate= useNavigate();
@@ -48,8 +49,8 @@ const Create = () => {
       <Container>
         
         <Row>
-          <Col>Image should go here
-
+          <Col>
+            <PhotoUploader/>
           </Col>
           <Col>
             <Form onSubmit={handleSubmit}>
