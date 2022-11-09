@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import {Container, Row, Col, Button} from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css";
 import Form from 'react-bootstrap/Form'
-import { InputGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 // business picture, Business name, descr, contact info,  
