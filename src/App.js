@@ -8,7 +8,7 @@ import User from "./pages/User";
 import LowkeyNavbar from "./components/Navbar";
 import Product from "./pages/Product";
 import Error from "./components/Error";
-import CreateAccount from "./pages/CreateAccount";
+import Register from "./pages/Register";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
           <Route path="/cart" element={<Cart />}></Route>
           <Route path="/user" element={<User />}></Route>
           <Route path="/product/:id" element={<Product />}></Route> 
-          <Route path="/CreateAccount" element={<CreateAccount/>}></Route>
+          <Route path="/register" element={<Register/>}></Route>
           <Route path="*" element={<Error />}></Route>
         </Routes>
       </Router>

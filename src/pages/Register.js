@@ -7,13 +7,14 @@ import { InputGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 // business picture, Business name, descr, contact info,  
+import "./Forms.css";
 
-const CreateAccount = () => {
+const Register = () => {
     const[formValue, setformValue]= useState({
-        firstname:'',
-        lastname:'',
+        email:'',
         username:'',
         password:'',
+        rePassword:''
       });
 
     const handleChange= (event) =>{
@@ -24,18 +25,13 @@ const CreateAccount = () => {
         // add logic once backend adds account list
     }
     return(
-    <div>
-        <Container>
-        <Form onSubmit={handleSubmit}> Create Your Account 
-              <div className= "mb-3"></div>
-              <Form.Group className ="mb-3">
-                <Form.Label> First Name </Form.Label>
-                <Form.Control as= "input" id= "firstname" value={formValue.firstname} 
-                onChange={handleChange}/>
-              </Form.Group>
-              <Form.Group className ="mb-3">
-                <Form.Label> Last Name </Form.Label>
-                <Form.Control as= "input" id= "lastname" value={formValue.lastname} 
+    <div >
+        <Container className="form" >
+          <Form onSubmit={handleSubmit} >
+              <Form.Label className="title"> Create Your Account </Form.Label>
+              <Form.Group className= "mb-3">
+                <Form.Label> Email </Form.Label>
+                <Form.Control htmlSize= '5' placeholder="Enter a valid email" as= "input" id= "email" value={formValue.email} 
                 onChange={handleChange}/>
               </Form.Group>
               <Form.Group className ="mb-3">
@@ -45,19 +41,23 @@ const CreateAccount = () => {
               </Form.Group>
               <Form.Group className ="mb-3">
                 <Form.Label> Password </Form.Label>
-                <Form.Control type= "password" placeholder="Create new password" id= "password" value={formValue.password} 
+                <Form.Control as= "input" placeholder="Create new password" id= "password" value={formValue.password} 
+                onChange={handleChange}/>
+              </Form.Group>
+              <Form.Group className ="mb-3">
+                <Form.Label> Re-enter password </Form.Label>
+                <Form.Control type= "password" id= "rePassword" value={formValue.rePassword} 
                 onChange={handleChange}/>
               </Form.Group>
             
-              <Button variant="primary" type="submit">
-                Create
+              <Button className="formButton" variant="primary" type="submit">
+                Register
               </Button>
-            </Form>
-
+          </Form>
         </Container>
 
     </div>
     ); 
 };
 
-export default CreateAccount;
+export default Register;
