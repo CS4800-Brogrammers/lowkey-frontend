@@ -20,7 +20,7 @@ function App() {
           <LowkeyNavbar />
           <Routes>
             <Route path="/" element={<Home />}></Route>
-            <Route path="/create" element={<Create />}></Route>
+            <Route path="/create" element={<CreateShop />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
             <Route path="/user" element={<User />}></Route>
             <Route path="/product/:id" element={<Product />}></Route>

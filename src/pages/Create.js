@@ -6,7 +6,6 @@ import Form from "react-bootstrap/Form";
 import { InputGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
-import PhotoUploader from "../components/PhotoUploader";
 import ServerHostnameContext from "../context/ServerHostnameContext";
 
 const Create = () => {
@@ -27,13 +26,14 @@ const Create = () => {
         product_name: formValue.name,
         price: formValue.price,
         description: formValue.description,
+        link: ''
       })
       .catch((error) => {
         //implement error handling later
       })
       .finally(() => {
         setIsLoading(false);
-        navigate("/");
+        // navigate("/");
       });
   };
   const handleChange = (event) => {
@@ -53,7 +53,6 @@ const Create = () => {
       <Container>
         <Row>
           <Col>
-            <PhotoUploader/>
           </Col>
           <Col>
             <Form onSubmit={handleSubmit}>
