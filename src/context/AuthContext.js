@@ -21,58 +21,11 @@ export const AuthProvider = ({ children }) => {
       : null
   );
 
-  let registerUser = () => {
-    axios
-      .post("http://127.0.0.1:8000/api/v1/users/auth/register/", {
-        username: "",
-        email: "",
-        password1: "",
-        password2: "",
-      })
-      .then((response) => {
-        const authTokenResponse = {
-          access: response.data.access_token,
-          refresh: response.data.refresh_token,
-        };
-        setAuthTokens(authTokenResponse);
-        setUser(jwt_decode(response.data.access_token));
-        localStorage.setItem("authTokens", JSON.stringify(authTokenResponse));
-
-        navigate("/");
-      });
-  };
-
-  let loginUser = () => {
-    axios
-      .post("http://127.0.0.1:8000/api/v1/users/auth/login/", {
-        email: "",
-        password: "",
-      })
-      .then((response) => {
-        const authTokenResponse = {
-          access: response.data.access_token,
-          refresh: response.data.refresh_token,
-        };
-        setAuthTokens(authTokenResponse);
-        setUser(jwt_decode(response.data.access_token));
-        localStorage.setItem("authTokens", JSON.stringify(authTokenResponse));
-
-        navigate("/");
-      });
-  };
-
-  let logoutUser = () => {
-    setAuthTokens(null);
-    setUser(null);
-    localStorage.removeItem("authTokens");
-  };
-
   let contextData = {
     user: user,
     authTokens: authTokens,
-    registerUser: registerUser,
-    loginUser: loginUser,
-    logoutUser: logoutUser,
+    setAuthTokens: setAuthTokens,
+    setUser: setUser,
   };
   return (
     <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
