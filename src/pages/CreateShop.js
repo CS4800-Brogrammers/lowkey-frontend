@@ -7,7 +7,10 @@ import {AiOutlineCloudUpload} from "react-icons/ai";
 import Error from "../components/Error";
 import Loading from "../components/Loading";
 import {Navigate, useNavigate } from "react-router-dom";
-
+import {GoogleMap, useLoadScript, Marker} from "@react-google-maps/api";
+import usePlacesAutocomplete, {getGeocode, getLatLng} from 'use-places-autocomplete';
+import {Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption} from "@reach/combobox";
+import "@reach/combobox/styles.css";
 
 const CreateShop = () => {
     const shopsURL = "http://127.0.0.1:8000/shops/";
@@ -17,6 +20,7 @@ const CreateShop = () => {
     const [shopAddress, setShopAddress] = useState('');
     const [shopDescription, setShopDescription] = useState('');
     const [shopPhotos, setShopPhotos] = useState('');
+    const [selected, setSelected] = useState(null);
 
     const [errorMessage, setErrorMessage] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -30,13 +34,15 @@ const CreateShop = () => {
                 name: shopName,
                 address: shopAddress,
                 category: shopDescription,
+                link: 'https://javascript.info/formdata'
                 
             })
             .then((response) => {
                 setPost(response.data);
+                console.log(response);
             })
             .catch((error) => {
-                setErrorMessage(error.message);
+                //setErrorMessage(error.message);
             })
             .finally(() => {
                 setIsLoading(false);
@@ -54,6 +60,12 @@ const CreateShop = () => {
         fileUpload.current.click();
     }
 
+    //Google Maps Places Autocomplete API 
+    // const {isLoaded} = useLoadScript({
+    //     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    //     libraries: ["places"],
+    // });
+
     if (isLoading)
         return (
         <div>
@@ -68,6 +80,7 @@ const CreateShop = () => {
         );
 
     return (
+      
         <Container className = "form p-5">
             <Row className = "mb-5">
                 <h1>Create Your Shop</h1>
@@ -84,13 +97,18 @@ const CreateShop = () => {
 
                 <Form.Group className="mb-4" controlId="address">
                     <Form.Label>Shop Address</Form.Label>
-                    <Form.Control 
+                    {/* <Form.Control 
                         type = "text" 
                         value = {shopAddress} 
                         onChange = {(e) => setShopAddress(e.target.value)}
 
-                    />
+                    />  */}
+               
                 </Form.Group>
+                <div className = "places-container">
+                        {/* Pass in setSelected function as prop */}
+                        <PlacesAutoComplete setSelected = {setSelected} />
+                </div>
 
                 <Form.Group className="mb-4" controlId="description">
                     <Form.Label>Shop Description</Form.Label>
@@ -124,3 +142,39 @@ const CreateShop = () => {
       );
 };
 export default CreateShop; 
+
+//Component recieves setSelected as prop
+const PlacesAutoComplete = ({setSelected}) => {
+    const {
+        ready,
+        value, 
+        setValue,
+        suggestions: {status, data}, 
+        clearSuggestions,
+    } = usePlacesAutocomplete();
+
+    //return combobox component which handles the autocomplete api
+    return(
+        <Combobox>
+            <ComboboxInput 
+                value = {value} 
+                onChange = {e => setValue(e.target.value)} 
+                disabled = {!ready}
+                className = "combobox-input"
+                placeholder = "Search for your address"
+            />
+            <ComboboxPopover>
+                <ComboboxList>
+                    {status === "OK" && 
+                        data.map(({place_id, description}) => (
+                            <ComboboxOption 
+                                key = {place_id} 
+                                value = {description}
+                            />
+                        ))}
+                </ComboboxList>
+            </ComboboxPopover>
+        </Combobox>
+    )
+    
+}
