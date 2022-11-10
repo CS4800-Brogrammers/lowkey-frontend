@@ -5,7 +5,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Form from 'react-bootstrap/Form'
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
-// business picture, Business name, descr, contact info,  
 import "./Forms.css";
 
 const Register = () => {

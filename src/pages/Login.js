@@ -1,15 +1,16 @@
 import axios from "axios";
 import React, { useState } from "react";
-import {Container, Row, Col, Button} from 'react-bootstrap'
+import {Container, Row, Col, Button, FormSelect} from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css";
 import Form from 'react-bootstrap/Form'
 import { InputGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
+import "./Forms.css";
 
 const Login = () => {
     const[formValue, setformValue]= useState({
-        username:'',
+        email:'',
         password:'',
       });
 
@@ -22,22 +23,22 @@ const Login = () => {
     }
     return(
     <div>
-        <Container>
-        <Form onSubmit={handleSubmit}> Login 
-              <div className= "mb-3"></div>
+        <Container className="form">
+        <Form onSubmit={handleSubmit}>
+              <Form.Label className="title"> Login </Form.Label>
               <Form.Group className ="mb-3">
-                <Form.Label> Username </Form.Label>
-                <Form.Control as= "input" placeholder="Enter username" id= "username" value={formValue.username} 
+                <Form.Label> Email </Form.Label>
+                <Form.Control as= "input" id= "email" value={formValue.email} 
                 onChange={handleChange}/>
               </Form.Group>
               <Form.Group className ="mb-3">
                 <Form.Label> Password </Form.Label>
-                <Form.Control type= "password" placeholder="Enter password" id= "password" value={formValue.password} 
+                <Form.Control type= "password" id= "password" value={formValue.password} 
                 onChange={handleChange}/>
               </Form.Group>
             
-              <Button variant="primary" type="submit">
-                Create
+              <Button variant="primary" type="submit" className="formButton">
+                Login
               </Button>
             </Form>
 
