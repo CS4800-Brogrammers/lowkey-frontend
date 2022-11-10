@@ -10,8 +10,10 @@ import "./Forms.css";
 import AuthContext from "../context/AuthContext";
 import jwt_decode from "jwt-decode";
 import Error from "../components/Error";
+import ServerHostnameContext from "../context/ServerHostnameContext";
 
 const Login = () => {
+  const serverHostname = useContext(ServerHostnameContext);
   const navigate = useNavigate();
   const { user, setAuthTokens, setUser } = useContext(AuthContext);
   const [formValue, setformValue] = useState({
@@ -28,7 +30,7 @@ const Login = () => {
     event.preventDefault();
     setIsLoading(true);
     await axios
-      .post("http://127.0.0.1:8000/api/v1/users/auth/login/", {
+      .post(`http://${serverHostname}:8000/api/v1/users/auth/login/`, {
         email: formValue.email,
         password: formValue.password,
       })

@@ -1,6 +1,4 @@
-import axios from "axios";
-import { createContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { createContext, useState } from "react";
 import jwt_decode from "jwt-decode";
 
 const AuthContext = createContext();
@@ -8,8 +6,6 @@ const AuthContext = createContext();
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
-  const navigate = useNavigate();
-
   let [authTokens, setAuthTokens] = useState(() =>
     localStorage.getItem("authTokens")
       ? JSON.parse(localStorage.getItem("authTokens"))
