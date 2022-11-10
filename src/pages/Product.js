@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Error from "../components/Error";
 import Loading from "../components/Loading";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
@@ -11,6 +11,7 @@ import img1 from "../images/chocolate_cake.jpg";
 
 import styles from "./Product.module.css";
 import Delete from "../components/Delete";
+import ServerHostnameContext from "../context/ServerHostnameContext";
 const {
   mainContainer,
   productImage,
@@ -31,8 +32,9 @@ const Product = (props) => {
   const { id } = useParams();
 
   const navigate = useNavigate();
-  const getProductURL = `http://127.0.0.1:8000/product/${id}/?format=json`;
-  const deleteProductURL = `http://127.0.0.1:8000/product/${id}/`;
+  const serverHostname = useContext(ServerHostnameContext);
+  const getProductURL = `http://${serverHostname}:8000/product/${id}/?format=json`;
+  const deleteProductURL = `http://${serverHostname}:8000/product/${id}/`;
 
   const handleCancel = () => {
     setDeleteRequest(false);
