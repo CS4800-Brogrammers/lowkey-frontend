@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useContext, useRef} from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Form, Button, Container, Row} from 'react-bootstrap'
 import "./CreateShop.css";
@@ -11,9 +11,11 @@ import {GoogleMap, useLoadScript, Marker} from "@react-google-maps/api";
 import usePlacesAutocomplete, {getGeocode, getLatLng} from 'use-places-autocomplete';
 import {Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption} from "@reach/combobox";
 import "@reach/combobox/styles.css";
+import ServerHostnameContext from "../context/ServerHostnameContext";
 
 const CreateShop = () => {
-    const shopsURL = "http://127.0.0.1:8000/shops/";
+    const serverHostname = useContext(ServerHostnameContext);
+    const shopsURL = `http://${serverHostname}:8000/product/?format=json`;
 
     const [post, setPost] = useState(null);
     const [shopName, setShopName] = useState('');
