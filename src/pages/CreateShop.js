@@ -20,7 +20,7 @@ const CreateShop = () => {
     const [shopAddress, setShopAddress] = useState('');
     const [shopDescription, setShopDescription] = useState('');
     const [shopPhotos, setShopPhotos] = useState('');
-    const [selected, setSelected] = useState(null);
+    // const [selected, setSelected] = useState(null);
 
     const [errorMessage, setErrorMessage] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -59,13 +59,6 @@ const CreateShop = () => {
     const uploadPhotos = () => {
         fileUpload.current.click();
     }
-
-    //Google Maps Places Autocomplete API 
-    // const {isLoaded} = useLoadScript({
-    //     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    //     libraries: ["places"],
-    // });
-
     if (isLoading)
         return (
         <div>
@@ -94,22 +87,7 @@ const CreateShop = () => {
                         onChange = {(e) => setShopName(e.target.value)}
                     />
                 </Form.Group>
-
-                <Form.Group className="mb-4" controlId="address">
-                    <Form.Label>Shop Address</Form.Label>
-                    {/* <Form.Control 
-                        type = "text" 
-                        value = {shopAddress} 
-                        onChange = {(e) => setShopAddress(e.target.value)}
-
-                    />  */}
                
-                </Form.Group>
-                <div className = "places-container">
-                        {/* Pass in setSelected function as prop */}
-                        <PlacesAutoComplete setSelected = {setSelected} />
-                </div>
-
                 <Form.Group className="mb-4" controlId="description">
                     <Form.Label>Shop Description</Form.Label>
                     <Form.Control 
@@ -120,18 +98,26 @@ const CreateShop = () => {
                         />
                 </Form.Group>
 
-                <Form.Group className="mb-4" controlId="photos">
-                <Form.Label>Show off your shop with photos</Form.Label>
-                    <div className = "upload" onClick = {uploadPhotos}>
-                        <AiOutlineCloudUpload id = "icon" size = "30"/>
-                        <p>Browse Files to Upload</p>
-                        <Form.Control 
-                            ref = {fileUpload} 
-                            type = "file" multiple 
-                            hidden
-                            onChange = {(e) => setShopPhotos(e.target.files)}
-                            />
+                <Form.Group className="mb-4" controlId="address">
+                    <Form.Label>Shop Address</Form.Label>
+                    <div className = "places-container">
+                        {/* Pass in setSelected function as prop */}
+                        <PlacesAutoComplete setShopAddress = {setShopAddress} />
                     </div>
+                </Form.Group>
+
+                <Form.Group className="mb-4" controlId="photos">
+                    <Form.Label>Show off your shop with photos</Form.Label>
+                        <div className = "upload" onClick = {uploadPhotos}>
+                            <AiOutlineCloudUpload id = "icon" size = "30"/>
+                            <p>Browse Files to Upload</p>
+                            <Form.Control 
+                                ref = {fileUpload} 
+                                type = "file" multiple 
+                                hidden
+                                onChange = {(e) => setShopPhotos(e.target.files)}
+                                />
+                        </div>
                 </Form.Group>
 
                 <Button variant="primary" type="submit">
@@ -144,7 +130,7 @@ const CreateShop = () => {
 export default CreateShop; 
 
 //Component recieves setSelected as prop
-const PlacesAutoComplete = ({setSelected}) => {
+const PlacesAutoComplete = ({setShopAddress}) => {
     const {
         ready,
         value, 
@@ -153,9 +139,14 @@ const PlacesAutoComplete = ({setSelected}) => {
         clearSuggestions,
     } = usePlacesAutocomplete();
 
+    const handleSelect = (address) => {
+        setValue(address, false);
+        clearSuggestions(); 
+        setShopAddress(address);
+    }
     //return combobox component which handles the autocomplete api
     return(
-        <Combobox>
+        <Combobox onSelect = {handleSelect}>
             <ComboboxInput 
                 value = {value} 
                 onChange = {e => setValue(e.target.value)} 
