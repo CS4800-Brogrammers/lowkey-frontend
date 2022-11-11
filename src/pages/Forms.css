@@ -1,0 +1,28 @@
+.form {
+  width: 25%;
+  margin-top: 5%;
+  border-top: solid #dcdcdc;
+  border-left: solid #dcdcdc;
+  box-shadow: 1px 1px #a9a9a9, 2px 2px #a9a9a9, 3px 3px #a9a9a9, 4px 4px #a9a9a9,
+    5px 5px #a9a9a9;
+}
+.formButton {
+  margin-bottom: 10%;
+  background-color: #5f6efa;
+  padding-left: 10%;
+  padding-right: 10%;
+  box-sizing: border-box;
+}
+.title {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.text-link {
+  color: #0d6efd;
+  text-decoration: underline;
+}
+
+.text-link:hover {
+  cursor: pointer;
+}
