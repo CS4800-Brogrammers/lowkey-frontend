@@ -11,6 +11,7 @@ import img1 from "../images/chocolate_cake.jpg";
 import styles from "./Product.module.css";
 import Delete from "../components/Delete";
 import ServerHostnameContext from "../context/ServerHostnameContext";
+import "./Formats.css";
 const {
   mainContainer,
   productImage,
@@ -21,7 +22,7 @@ const {
   counterButton,
   button,
 } = styles;
-
+const newLineBreak = (text) => text.replaceAll(/(\\n)/g, "<br />");
 const Product = (props) => {
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -124,14 +125,16 @@ const Product = (props) => {
                 </Col>
               </Row>
               <Row className={productRowSpacing}>
-                Desciption: {product.description}
+                <div className= "textLineBreak">
+                  Desciption: {product.description} 
+                </div>
               </Row>
               {/* <Row>Extra Information</Row> */}
               <Row
                 className={`${productRowSpacing} d-flex justify-content-center`}
               >
                 <Col>
-                  <Button className={button} //onClick={() => setEditRequest(true) }
+                  <Button className={button}
                   onClick={() => setPopup(true)}
                   >
                     Edit

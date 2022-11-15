@@ -3,7 +3,6 @@ import React, { useState, useContext, useParams } from 'react';
 import { Modal, Button, Form, InputGroup} from "react-bootstrap";
 import ServerHostnameContext from "../context/ServerHostnameContext";
 
-
 const Edit= (props) =>{
     const serverHostname = useContext(ServerHostnameContext);
     const {prodDetail, trigger, closeTrigger, id}= props; 
@@ -16,7 +15,7 @@ const Edit= (props) =>{
 
     const onClose = () =>{
         closeTrigger();
-        //remove unsubmitted edits after clicking cancel/close button
+        //Removes unsubmitted edits after clicking cancel/close button
         setEdit({
             name: prodDetail.product_name,
             price: prodDetail.price,
@@ -77,7 +76,7 @@ const Edit= (props) =>{
                   className="mb-3"
                 >
                   <Form.Label>Product Description</Form.Label>
-                  <Form.Control 
+                  <Form.Control
                     as="textarea" 
                     rows={3} 
                     id= "description"
