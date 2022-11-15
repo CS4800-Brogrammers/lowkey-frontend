@@ -21,7 +21,6 @@ const Login = () => {
     password: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleChange = (event) => {
     setformValue({ ...formValue, [event.target.id]: event.target.value });
@@ -42,18 +41,16 @@ const Login = () => {
         setAuthTokens(authTokenResponse);
         setUser(jwt_decode(response.data.access_token));
         localStorage.setItem("authTokens", JSON.stringify(authTokenResponse));
+
+        navigate("/");
       })
       .catch((error) => {
-        setErrorMessage(error.response.data);
+        // form validation based on error message
+        console.log(error.response.data);
       })
       .finally(() => {
         setIsLoading(false);
       });
-    if (!errorMessage) navigate("/");
-    else {
-      // form validation based on error message
-      console.log(errorMessage);
-    }
   };
 
   useEffect(() => {
