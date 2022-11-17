@@ -1,11 +1,11 @@
 import axios from "axios";
-import React, { useState, useContext, useParams } from 'react';
+import React, { useState, useContext} from 'react';
 import { Modal, Button, Form, InputGroup} from "react-bootstrap";
 import ServerHostnameContext from "../context/ServerHostnameContext";
 
 const Edit= (props) =>{
     const serverHostname = useContext(ServerHostnameContext);
-    const {prodDetail, trigger, closeTrigger, id}= props; 
+    const {prodDetail, trigger, closeTrigger, id, onUpdateProd, onEditToggle, editToggle}= props; 
     const [edit, setEdit] = useState({
         name: prodDetail.product_name,
         price: prodDetail.price,
@@ -27,19 +27,21 @@ const Edit= (props) =>{
     };
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        const content = {
+          product_name: edit.name,
+          price: edit.price,
+          description: edit.description
+        }
+
         axios
-        .patch(editProductURL, {
-            product_name: edit.name,
-            price: edit.price,
-            description: edit.description,
-        })
+        .patch(editProductURL, content)
+        .then(res => onUpdateProd(res.data))
         .catch((error) => {
             //implement error handling later
         })
         .finally(() => {
-            // closes popup after submitting but change isnt updated unless i reload the page
-            // go back to fix this
-            closeTrigger();
+            closeTrigger();      
         });
     };
 

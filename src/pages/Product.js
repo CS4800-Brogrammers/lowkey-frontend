@@ -21,8 +21,7 @@ const {
   addToCartCounter,
   counterButton,
   button,
-} = styles;
-const newLineBreak = (text) => text.replaceAll(/(\\n)/g, "<br />");
+} = styles; 
 const Product = (props) => {
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -154,7 +153,7 @@ const Product = (props) => {
           </Col>
         </Row>
       </Container>
-      <Edit prodDetail= {product} trigger= {popup} closeTrigger= {() => setPopup(false)} id= {id}/>    
+      <Edit prodDetail= {product} trigger= {popup} closeTrigger= {() => setPopup(false)} id= {id} onUpdateProd = {setProduct} />    
     </div>
   );
 };
