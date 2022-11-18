@@ -26,7 +26,7 @@ const Create = () => {
         product_name: formValue.name,
         price: formValue.price,
         description: formValue.description,
-        link: ''
+        
       })
       .catch((error) => {
         //implement error handling later

@@ -15,14 +15,14 @@ import ServerHostnameContext from "../context/ServerHostnameContext";
 
 const CreateShop = () => {
     const serverHostname = useContext(ServerHostnameContext);
-    const shopsURL = `http://${serverHostname}:8000/product/?format=json`;
+    const shopsURL = `http://${serverHostname}:8000/shops/`;
 
     const [post, setPost] = useState(null);
     const [shopName, setShopName] = useState('');
     const [shopAddress, setShopAddress] = useState('');
     const [shopDescription, setShopDescription] = useState('');
     const [shopPhotos, setShopPhotos] = useState('');
-    // const [selected, setSelected] = useState(null);
+    const [shopCategory, setShopCategory] = useState('');
 
     const [errorMessage, setErrorMessage] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -35,8 +35,8 @@ const CreateShop = () => {
             .post(shopsURL, {
                 name: shopName,
                 address: shopAddress,
-                category: shopDescription,
-                link: 'https://javascript.info/formdata'
+                category: shopCategory,
+                description: shopDescription,
                 
             })
             .then((response) => {
@@ -53,6 +53,7 @@ const CreateShop = () => {
         console.log(shopName);
         console.log(shopAddress);
         console.log(shopDescription);
+        console.log(shopCategory);
         console.log(shopPhotos);
     
     }
@@ -89,16 +90,6 @@ const CreateShop = () => {
                         onChange = {(e) => setShopName(e.target.value)}
                     />
                 </Form.Group>
-               
-                <Form.Group className="mb-4" controlId="description">
-                    <Form.Label>Shop Description</Form.Label>
-                    <Form.Control 
-                        type = "text" 
-                        placeholder = "Let customers know a little bit about your shop" 
-                        value = {shopDescription} 
-                        onChange = {(e) => setShopDescription(e.target.value)}
-                        />
-                </Form.Group>
 
                 <Form.Group className="mb-4" controlId="address">
                     <Form.Label>Shop Address</Form.Label>
@@ -106,6 +97,26 @@ const CreateShop = () => {
                         {/* Pass in setSelected function as prop */}
                         <PlacesAutoComplete setShopAddress = {setShopAddress} />
                     </div>
+                </Form.Group>
+
+                <Form.Group className="mb-4" controlId="categroy">
+                    <Form.Label>Shop Category</Form.Label>
+                    <Form.Control 
+                        type = "text"  
+                        value = {shopCategory} 
+                        onChange = {(e) => setShopCategory(e.target.value)}
+                        />
+                </Form.Group>
+
+                <Form.Group className="mb-4" controlId="description">
+                    <Form.Label>Shop Description</Form.Label>
+                    <textarea
+                        type = "textarea" 
+                        placeholder = "Let customers know a little bit about your shop" 
+                        value = {shopDescription} 
+                        className = "form-control"
+                        onChange = {(e) => setShopDescription(e.target.value)}
+                    />
                 </Form.Group>
 
                 <Form.Group className="mb-4" controlId="photos">
