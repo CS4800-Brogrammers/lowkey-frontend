@@ -3,15 +3,15 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import Error from "../components/Error";
+import Edit from "../components/Edit";
 import Loading from "../components/Loading";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import StarRating from "../components/StarRating";
-
 import img1 from "../images/chocolate_cake.jpg";
-
 import styles from "./Product.module.css";
 import Delete from "../components/Delete";
 import ServerHostnameContext from "../context/ServerHostnameContext";
+import "./Formats.css";
 const {
   mainContainer,
   productImage,
@@ -21,13 +21,13 @@ const {
   addToCartCounter,
   counterButton,
   button,
-} = styles;
-
+} = styles; 
 const Product = (props) => {
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const [deleteRequest, setDeleteRequest] = useState(false);
+  const [popup, setPopup] = useState(false);
   const [counter, setCounter] = useState(1);
   const { id } = useParams();
 
@@ -124,24 +124,36 @@ const Product = (props) => {
                 </Col>
               </Row>
               <Row className={productRowSpacing}>
-                Desciption: {product.description}
+                <div className= "textLineBreak">
+                  Desciption: {product.description} 
+                </div>
               </Row>
               {/* <Row>Extra Information</Row> */}
               <Row
                 className={`${productRowSpacing} d-flex justify-content-center`}
               >
-                <Button
-                  className={button}
-                  variant="danger"
-                  onClick={() => setDeleteRequest(true)}
-                >
-                  Delete
-                </Button>
+                <Col>
+                  <Button className={button}
+                  onClick={() => setPopup(true)}
+                  >
+                    Edit
+                  </Button>
+                </Col>
+                <Col>
+                  <Button
+                    className={button}
+                    variant="danger"
+                    onClick={() => setDeleteRequest(true)}
+                  >
+                    Delete
+                  </Button>
+                </Col>
               </Row>
             </Container>
           </Col>
         </Row>
       </Container>
+      <Edit prodDetail= {product} trigger= {popup} closeTrigger= {() => setPopup(false)} id= {id} onUpdateProd = {setProduct} />    
     </div>
   );
 };
