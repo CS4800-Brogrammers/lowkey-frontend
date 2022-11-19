@@ -26,13 +26,14 @@ const Create = () => {
         product_name: formValue.name,
         price: formValue.price,
         description: formValue.description,
+        
       })
       .catch((error) => {
         //implement error handling later
       })
       .finally(() => {
         setIsLoading(false);
-        navigate("/");
+        // navigate("/");
       });
   };
   const handleChange = (event) => {
@@ -51,7 +52,8 @@ const Create = () => {
     <div>
       <Container>
         <Row>
-          <Col>Image should go here</Col>
+          <Col>
+          </Col>
           <Col>
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3">
