@@ -1,0 +1,13 @@
+.carlo{
+    /* width: 500px; */
+    /* height: 100%; */
+    background-color: #D9D9D9;
+    position: absolute;
+    bottom:1em;
+    left:2em;
+    /*There are issues at smaller percentages for both bootstrap and react bootstrap card*/
+    height: 55%;
+    width:50%; 
+
+    /* background-color: #D9D9D9; */
+}
