@@ -13,6 +13,8 @@ import Register from "./pages/Register";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./pages/Login";
 import { ServerHostnameProvider } from "./context/ServerHostnameContext";
+import CreateShop from "./pages/CreateShop";
+import Browse from "./pages/Browse";
 
 function App() {
   return (
@@ -29,6 +31,7 @@ function App() {
               <Route path="/product/:id" element={<Product />}></Route>
               <Route path="/register" element={<Register />}></Route>
               <Route path="/login" element={<Login />}></Route>
+              <Route path="/search" element={<Browse/>}></Route>
               <Route path="*" element={<Error />}></Route>
             </Routes>
           </ServerHostnameProvider>
