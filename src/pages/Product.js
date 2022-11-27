@@ -85,7 +85,7 @@ const Product = (props) => {
         setErrorMessage(error.message);
       })
       .finally(() => setIsLoading(false));
-  });
+  }, []);
 
   if (isLoading)
     return (

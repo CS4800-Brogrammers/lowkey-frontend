@@ -67,7 +67,7 @@ const Create = () => {
         navigate("/");
       })
       .finally(() => setIsLoading(false));
-  });
+  }, []);
 
   if (isLoading) {
     return (
