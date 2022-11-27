@@ -31,7 +31,7 @@ function App() {
               <Route path="/register" element={<Register />}></Route>
               <Route path="/login" element={<Login />}></Route>
               <Route path="*" element={<Error />}></Route>
-              <Route path="/shopview" element={<ShopView/>}></Route>
+              <Route path="/shopview/:id" element={<ShopView/>}></Route>
             </Routes>
           </ServerHostnameProvider>
         </AuthProvider>

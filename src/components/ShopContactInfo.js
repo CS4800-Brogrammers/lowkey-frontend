@@ -5,16 +5,16 @@ import Popover from 'react-bootstrap/Popover';
 import "./ShopContactInfo.css";
 import "./ShopInfoCard.css";
 
-const ShopContactInfo = () =>{
+const ShopContactInfo = (props) =>{
     const popover = (
         <Popover id="popover-basic">
           <Popover.Header as="h3">Contact Info</Popover.Header>
           <Popover.Body>
             <div className= "bottomLine">
-              Email: sampleemail@gmail
+              Email: <strong> {props.email} </strong>
             </div>
             <div>
-              Phone Number: <strong>N/A</strong>
+              Phone Number: <strong> {props.phoneNum} </strong>
             </div>
           </Popover.Body>
         </Popover>
