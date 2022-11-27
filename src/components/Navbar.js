@@ -12,7 +12,7 @@ import {
 import { Link } from "react-router-dom";
 
 const LowkeyNavbar = () => {
-  const [activePage, setActivePage] = useState(null);
+  const [activePage, setActivePage] = useState("");
 
   return (
     <Navbar expand="sm" className = "mb-4 pb-3 border-bottom">
@@ -21,7 +21,7 @@ const LowkeyNavbar = () => {
         as={Link} 
         to="/"
         onClick = {() => setActivePage("/")} 
-        className = {activePage === "Create" ? 'active' : 'inactive'}
+        className = {activePage === "" ? 'active' : 'inactive'}
         >
           Lowkey
         </Navbar.Brand>
@@ -35,7 +35,12 @@ const LowkeyNavbar = () => {
                 className="me-2"
                 aria-label="Search" 
               />
-              <Button variant="outline-success" onClick = {() => setActivePage("Search")}>
+              <Button 
+                variant="outline-success" 
+                onClick = {() => setActivePage("Search")}
+                as={Link}
+                to="/Search"
+                >
                 <AiOutlineSearch size={30} />
               </Button>
             </Form>
