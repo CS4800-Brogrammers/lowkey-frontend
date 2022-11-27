@@ -11,9 +11,7 @@ const ShopView = () => {
         <div className="shopContainer">
             <div className="shopBanner">
                 <img className="BannerImage" src= {cupcakes}/> 
-                <div className="shopBannerOverlay"> 
-                    <ShopInfoCard></ShopInfoCard>
-                </div>
+                <ShopInfoCard></ShopInfoCard>
             </div>     
             <div className="announcements">
                <div> 

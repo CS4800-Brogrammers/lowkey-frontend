@@ -1,60 +1,11 @@
- /* .shopContainer {
-    display: grid;
-    height: 100vh;
-    width: 100%;
-  
-    grid-template-rows: 40fr 15fr 45fr;
-    grid-template-areas:
-      "imagebar"
-      "announcements"
-      "products";
-   
-  }
-  
-  .imagebar {
-    grid-area: imagebar;
-    box-sizing: border-box;
-    width: 100%;
-  }
-  
-  .announcements {
-    background-color: lightslategray;
-    grid-area: announcements;
-  }
-  
-  .products {
-    grid-area: products;
-    border-style: solid;
-  }
-  .shopBanner{
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-
-  }   */
-
-  /* html, body{
-    height:100%;
-  }
-  #root{
-    height:100%
-  }
-  .App{
-    height:100%; 
-  } */
-   .shopContainer{
+ .shopContainer{
     height: 100vh;
     width:100%;
   }
-
-  .imagebar {
-    box-sizing: border-box;
-    height: 40%;
-  } 
   .announcements {
     background-color: #D9D9D9;
     height:15vh;
-    border-style: solid; 
+    /* border-style: solid;  */
     padding-left: 2em;
     padding-top: 1em;
     font-weight: bold;
@@ -65,32 +16,16 @@
     font-weight:normal;
   }
   .products {
-    /* border-style: solid; */
+    /* Make any styling to products section here if necessary*/
   }
   .shopBanner{
     position: relative;
-    /* height: 35vh; this doesnt limit
-    BannerImage height max height vh
-    so its useless */
   }
   .BannerImage{
-    /* this height actually determines it the height for its
-    parent container that uses .shopBanner style*/
     height: 35vh;
     width: 100%;
     object-fit: cover;
+  }
 
-  }
-  .shopBannerOverlay{
-    /* text-align: center; this is useless b/c bottom left
-    settings already made to position it*/
-    /* position: absolute;
-    bottom:1em;
-    left:2em;
-    background-color: #D9D9D9; */
-    height: 85%;
-    width: 95%;
-    /* height and width chosen here b/c*/
-  }
 
 

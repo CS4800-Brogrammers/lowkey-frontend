@@ -1,28 +1,34 @@
-import React from "react";
-import Card from 'react-bootstrap/Card';
-import { Container, Row, Col, Button } from "react-bootstrap";
+import React, {useState, useEffect} from "react";
 import "./ShopInfoCard.css";
+import StarRating from "./StarRating";
+import {ImLocation} from "react-icons/im";
+import ShopContactInfo from "./ShopContactInfo";
+
 
 const ShopInfoCard = () => {
     return(
-        // <div className="carlo"> Hello there</div>
-        // <Card className="carlo">
-        //     <Card.Body>
-        //         <Card.Title>Card Title</Card.Title>
-        //         <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
-        //         <Card.Text>
-        //         Some quick example text to build on the card title and make up the
-        //         bulk of the card's content.
-        //         </Card.Text>
-        //     </Card.Body>
-        // </Card>
-
-        <div class="card carlo">
-            <div class="card-body">
-                <h4 class="card-title"> Shop Name</h4>
-                <p class="card-text">Some example text. Some example text.</p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
+        <div className= "row infoCard"> 
+            <div className="row">
+                <div className= "col-5 shopName"> Shop name </div>
+                <div className= "col-3 positionAlign">
+                    <StarRating rating = {4} starSize={25} ratingColor= "#00A6A6"></StarRating>
+                </div>
+                <div className= "col-2 followers positionAlign">Followers</div>
+                <div className= "col-2 positionAlign">
+                    <ShopContactInfo></ShopContactInfo>
+                </div>
+            </div>
+            <div className="row">
+                <div className= "col-1"> 
+                    <ImLocation className= "locationIcon "></ImLocation> 
+                </div>
+                <div className= "col-11 locationText">City, State</div>
+            </div>
+            <div className="row">
+                <div className= "col">
+                    <p className= "shopDescription cutOffText">Short description of business. Here is a sample sentence to show how long it can be without overflowing over and past card border. This is a second sentence to add some more length </p>
+                    <input className= "expand-btn" type= "checkbox" />
+                </div>
             </div>
         </div>
     );
