@@ -62,29 +62,28 @@ const Product = (props) => {
 
   useEffect(() => {
     axios
-      .get(getProductURL)
-      .then((response) => {
-        setProduct(response.data);
-      })
+      .all([
+        axios.get(getProductURL),
+        axios.get(getUserShopURL, {
+          headers: {
+            Authorization: localStorage.getItem("authTokens")
+              ? "JWT " + JSON.parse(localStorage.getItem("authTokens")).access
+              : null,
+          },
+        }),
+      ])
+      .then(
+        axios.spread((response1, response2) => {
+          setProduct(response1.data);
+          setShop(response2.data);
+        })
+      )
       .catch((error) => {
         setErrorMessage(error.message);
       })
-      .finally();
-    axios
-      .get(getUserShopURL, {
-        headers: {
-          Authorization: localStorage.getItem("authTokens")
-            ? "JWT " + JSON.parse(localStorage.getItem("authTokens")).access
-            : null,
-        },
-      })
-      .then((response) => {
-        setShop(response.data);
-      })
-      .catch((error) => {
-        setErrorMessage(error.message);
-      })
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   if (isLoading)
@@ -152,7 +151,7 @@ const Product = (props) => {
                 </div>
               </Row>
               {/* <Row>Extra Information</Row> */}
-              {shop[0].shop_id === product.shop_id && (
+              {shop[0] && shop[0].shop_id === product.shop_id && (
                 <Row
                   className={`${productRowSpacing} d-flex justify-content-center`}
                 >
