@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "react-bootstrap/Form";
@@ -11,23 +11,34 @@ import ServerHostnameContext from "../context/ServerHostnameContext";
 const Create = () => {
   const serverHostname = useContext(ServerHostnameContext);
   const navigate = useNavigate();
+  const [shop, setShop] = useState(null);
   const [formValue, setformValue] = useState({
     name: "",
     price: "",
     description: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);
     axios
-      .post(`http://${serverHostname}:8000/product/`, {
-        product_name: formValue.name,
-        price: formValue.price,
-        description: formValue.description,
-        
-      })
+      .post(
+        `http://${serverHostname}:8000/shops/${shop[0].shop_id}/product/`,
+        {
+          product_name: formValue.name,
+          price: formValue.price,
+          description: formValue.description,
+          rating: 0,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("authTokens")
+              ? "JWT " + JSON.parse(localStorage.getItem("authTokens")).access
+              : null,
+          },
+        }
+      )
       .catch((error) => {
         //implement error handling later
       })
@@ -39,6 +50,24 @@ const Create = () => {
   const handleChange = (event) => {
     setformValue({ ...formValue, [event.target.id]: event.target.value });
   };
+
+  useEffect(() => {
+    axios
+      .get(`http://${serverHostname}:8000/user/shops/?format=json`, {
+        headers: {
+          Authorization: localStorage.getItem("authTokens")
+            ? "JWT " + JSON.parse(localStorage.getItem("authTokens")).access
+            : null,
+        },
+      })
+      .then((response) => {
+        setShop(response.data);
+      })
+      .catch((error) => {
+        navigate("/");
+      })
+      .finally(() => setIsLoading(false));
+  });
 
   if (isLoading) {
     return (
@@ -52,8 +81,7 @@ const Create = () => {
     <div>
       <Container>
         <Row>
-          <Col>
-          </Col>
+          <Col></Col>
           <Col>
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3">
