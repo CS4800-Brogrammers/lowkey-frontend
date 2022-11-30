@@ -7,7 +7,6 @@ import Edit from "../components/Edit";
 import Loading from "../components/Loading";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import StarRating from "../components/StarRating";
-import img1 from "../images/chocolate_cake.jpg";
 import styles from "./Product.module.css";
 import Delete from "../components/Delete";
 import ServerHostnameContext from "../context/ServerHostnameContext";
@@ -21,19 +20,22 @@ const {
   addToCartCounter,
   counterButton,
   button,
-} = styles; 
+} = styles;
 const Product = (props) => {
   const [product, setProduct] = useState(null);
+  const [shop, setShop] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const [deleteRequest, setDeleteRequest] = useState(false);
   const [popup, setPopup] = useState(false);
   const [counter, setCounter] = useState(1);
+  const [editCounter, setEditCounter] = useState(0);
   const { id } = useParams();
 
   const navigate = useNavigate();
   const serverHostname = useContext(ServerHostnameContext);
   const getProductURL = `http://${serverHostname}:8000/product/${id}/?format=json`;
+  const getUserShopURL = `http://${serverHostname}:8000/user/shops/?format=json`;
   const deleteProductURL = `http://${serverHostname}:8000/product/${id}/`;
 
   const handleCancel = () => {
@@ -42,7 +44,13 @@ const Product = (props) => {
 
   const handleDelete = () => {
     axios
-      .delete(deleteProductURL)
+      .delete(deleteProductURL, {
+        headers: {
+          Authorization: localStorage.getItem("authTokens")
+            ? "JWT " + JSON.parse(localStorage.getItem("authTokens")).access
+            : null,
+        },
+      })
       .catch((error) => {
         setErrorMessage(error.message);
       })
@@ -54,15 +62,29 @@ const Product = (props) => {
 
   useEffect(() => {
     axios
-      .get(getProductURL)
-      .then((response) => {
-        setProduct(response.data);
-      })
+      .all([
+        axios.get(getProductURL),
+        axios.get(getUserShopURL, {
+          headers: {
+            Authorization: localStorage.getItem("authTokens")
+              ? "JWT " + JSON.parse(localStorage.getItem("authTokens")).access
+              : null,
+          },
+        }),
+      ])
+      .then(
+        axios.spread((response1, response2) => {
+          setProduct(response1.data);
+          setShop(response2.data);
+        })
+      )
       .catch((error) => {
         setErrorMessage(error.message);
       })
-      .finally(() => setIsLoading(false));
-  }, [getProductURL]);
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [editCounter]);
 
   if (isLoading)
     return (
@@ -88,7 +110,11 @@ const Product = (props) => {
       <Container className="mt-5">
         <Row>
           <Col sm={6} className="d-flex align-items-center  ">
-            <img className={productImage} src={img1} alt="product"></img>
+            <img
+              className={productImage}
+              src={product.image}
+              alt="product"
+            ></img>
           </Col>
           <Col sm={6} className="d-flex align-items-center">
             <Container className={productText}>
@@ -124,36 +150,44 @@ const Product = (props) => {
                 </Col>
               </Row>
               <Row className={productRowSpacing}>
-                <div className= "textLineBreak">
-                  Desciption: {product.description} 
+                <div className="textLineBreak">
+                  Desciption: {product.description}
                 </div>
               </Row>
               {/* <Row>Extra Information</Row> */}
-              <Row
-                className={`${productRowSpacing} d-flex justify-content-center`}
-              >
-                <Col>
-                  <Button className={button}
-                  onClick={() => setPopup(true)}
-                  >
-                    Edit
-                  </Button>
-                </Col>
-                <Col>
-                  <Button
-                    className={button}
-                    variant="danger"
-                    onClick={() => setDeleteRequest(true)}
-                  >
-                    Delete
-                  </Button>
-                </Col>
-              </Row>
+              {shop[0] && shop[0].shop_id === product.shop_id && (
+                <Row
+                  className={`${productRowSpacing} d-flex justify-content-center`}
+                >
+                  <Col>
+                    <Button className={button} onClick={() => setPopup(true)}>
+                      Edit
+                    </Button>
+                  </Col>
+                  <Col>
+                    <Button
+                      className={button}
+                      variant="danger"
+                      onClick={() => setDeleteRequest(true)}
+                    >
+                      Delete
+                    </Button>
+                  </Col>
+                </Row>
+              )}
             </Container>
           </Col>
         </Row>
       </Container>
-      <Edit prodDetail= {product} trigger= {popup} closeTrigger= {() => setPopup(false)} id= {id} onUpdateProd = {setProduct} />    
+      <Edit
+        prodDetail={product}
+        trigger={popup}
+        closeTrigger={() => setPopup(false)}
+        id={id}
+        onUpdateProd={setProduct}
+        editCounter={editCounter}
+        setEditCounter={setEditCounter}
+      />
     </div>
   );
 };
