@@ -41,25 +41,24 @@ const CreateShop = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
+
+    let formData = new FormData();
+    formData.append("name", shopName);
+    formData.append("rating", 0);
+    formData.append("address", shopAddress);
+    formData.append("category", shopCategory);
+    formData.append("description", shopDescription);
+    formData.append("phone_number", shopPhoneNumber);
+    if (shopPhotos !== null) formData.append("image", shopPhotos[0]);
+
     axios
-      .post(
-        shopsURL,
-        {
-          name: shopName,
-          address: shopAddress,
-          category: shopCategory,
-          description: shopDescription,
-          phone_number: shopPhoneNumber,
-          products: [],
+      .post(shopsURL, formData, {
+        headers: {
+          Authorization: localStorage.getItem("authTokens")
+            ? "JWT " + JSON.parse(localStorage.getItem("authTokens")).access
+            : null,
         },
-        {
-          headers: {
-            Authorization: localStorage.getItem("authTokens")
-              ? "JWT " + JSON.parse(localStorage.getItem("authTokens")).access
-              : null,
-          },
-        }
-      )
+      })
       .then((response) => {
         setPost(response.data);
         console.log(response);

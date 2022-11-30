@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { Modal, Button, Form, InputGroup } from "react-bootstrap";
+import { AiOutlineCloudUpload } from "react-icons/ai";
 import ServerHostnameContext from "../context/ServerHostnameContext";
 
 const Edit = (props) => {
@@ -13,12 +14,15 @@ const Edit = (props) => {
     onUpdateProd,
     onEditToggle,
     editToggle,
+    editCounter,
+    setEditCounter,
   } = props;
   const [edit, setEdit] = useState({
     name: prodDetail.product_name,
     price: prodDetail.price,
     description: prodDetail.description,
   });
+  const [productPhotos, setProductPhotos] = useState(null);
   const editProductURL = `http://${serverHostname}:8000/product/${id}/`;
 
   const onClose = () => {
@@ -36,27 +40,36 @@ const Edit = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const content = {
-      product_name: edit.name,
-      price: edit.price,
-      description: edit.description,
-    };
+    let formData = new FormData();
+    formData.append("product_name", edit.name);
+    formData.append("price", edit.price);
+    formData.append("description", edit.description);
+    if (productPhotos !== null) formData.append("image", productPhotos[0]);
 
     axios
-      .patch(editProductURL, content, {
+      .patch(editProductURL, formData, {
         headers: {
           Authorization: localStorage.getItem("authTokens")
             ? "JWT " + JSON.parse(localStorage.getItem("authTokens")).access
             : null,
         },
       })
-      .then((res) => onUpdateProd(res.data))
+      .then((res) => {
+        // onUpdateProd(res.data);
+        setEditCounter(editCounter + 1);
+      })
       .catch((error) => {
         //implement error handling later
       })
       .finally(() => {
         closeTrigger();
       });
+  };
+
+  //handle click to upload and trigger file input
+  const fileUpload = useRef(null);
+  const uploadPhotos = () => {
+    fileUpload.current.click();
   };
 
   if (trigger) {
@@ -97,6 +110,21 @@ const Edit = (props) => {
                 value={edit.description}
                 onChange={handleChange}
               />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="photos">
+              <Form.Label>Show off your product with photos</Form.Label>
+              <div className="upload" onClick={uploadPhotos}>
+                <AiOutlineCloudUpload id="icon" size="30" />
+                <p>Browse Files to Upload</p>
+                <Form.Control
+                  ref={fileUpload}
+                  type="file"
+                  multiple
+                  hidden
+                  onChange={(e) => setProductPhotos(e.target.files)}
+                />
+              </div>
             </Form.Group>
           </Form>
         </Modal.Body>

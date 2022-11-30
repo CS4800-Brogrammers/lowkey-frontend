@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "react-bootstrap/Form";
@@ -7,6 +7,7 @@ import { InputGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import ServerHostnameContext from "../context/ServerHostnameContext";
+import { AiOutlineCloudUpload } from "react-icons/ai";
 
 const Create = () => {
   const serverHostname = useContext(ServerHostnameContext);
@@ -17,20 +18,24 @@ const Create = () => {
     price: "",
     description: "",
   });
+  const [productPhotos, setProductPhotos] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);
+
+    let formData = new FormData();
+    formData.append("product_name", formValue.name);
+    formData.append("price", formValue.price);
+    formData.append("description", formValue.description);
+    formData.append("rating", 0);
+    if (productPhotos !== null) formData.append("image", productPhotos[0]);
+
     axios
       .post(
         `http://${serverHostname}:8000/shops/${shop[0].shop_id}/product/`,
-        {
-          product_name: formValue.name,
-          price: formValue.price,
-          description: formValue.description,
-          rating: 0,
-        },
+        formData,
         {
           headers: {
             Authorization: localStorage.getItem("authTokens")
@@ -49,6 +54,12 @@ const Create = () => {
   };
   const handleChange = (event) => {
     setformValue({ ...formValue, [event.target.id]: event.target.value });
+  };
+
+  //handle click to upload and trigger file input
+  const fileUpload = useRef(null);
+  const uploadPhotos = () => {
+    fileUpload.current.click();
   };
 
   useEffect(() => {
@@ -116,6 +127,22 @@ const Create = () => {
                   onChange={handleChange}
                 />
               </Form.Group>
+
+              <Form.Group className="mb-3" controlId="photos">
+                <Form.Label>Show off your product with photos</Form.Label>
+                <div className="upload" onClick={uploadPhotos}>
+                  <AiOutlineCloudUpload id="icon" size="30" />
+                  <p>Browse Files to Upload</p>
+                  <Form.Control
+                    ref={fileUpload}
+                    type="file"
+                    multiple
+                    hidden
+                    onChange={(e) => setProductPhotos(e.target.files)}
+                  />
+                </div>
+              </Form.Group>
+
               <Button variant="primary" type="submit">
                 Create
               </Button>

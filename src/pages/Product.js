@@ -7,7 +7,6 @@ import Edit from "../components/Edit";
 import Loading from "../components/Loading";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import StarRating from "../components/StarRating";
-import img1 from "../images/chocolate_cake.jpg";
 import styles from "./Product.module.css";
 import Delete from "../components/Delete";
 import ServerHostnameContext from "../context/ServerHostnameContext";
@@ -30,6 +29,7 @@ const Product = (props) => {
   const [deleteRequest, setDeleteRequest] = useState(false);
   const [popup, setPopup] = useState(false);
   const [counter, setCounter] = useState(1);
+  const [editCounter, setEditCounter] = useState(0);
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -84,7 +84,7 @@ const Product = (props) => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, []);
+  }, [editCounter]);
 
   if (isLoading)
     return (
@@ -110,7 +110,11 @@ const Product = (props) => {
       <Container className="mt-5">
         <Row>
           <Col sm={6} className="d-flex align-items-center  ">
-            <img className={productImage} src={img1} alt="product"></img>
+            <img
+              className={productImage}
+              src={product.image}
+              alt="product"
+            ></img>
           </Col>
           <Col sm={6} className="d-flex align-items-center">
             <Container className={productText}>
@@ -181,6 +185,8 @@ const Product = (props) => {
         closeTrigger={() => setPopup(false)}
         id={id}
         onUpdateProd={setProduct}
+        editCounter={editCounter}
+        setEditCounter={setEditCounter}
       />
     </div>
   );
