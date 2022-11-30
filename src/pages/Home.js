@@ -47,6 +47,7 @@ const Home = () => {
         <ProductCard
           key={index}
           id={product["product_id"]}
+          image={product["image"]}
           title={product["product_name"]}
           price={product["price"]}
           rating={product["rating"]}

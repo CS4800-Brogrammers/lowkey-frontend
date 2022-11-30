@@ -26,12 +26,13 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />}></Route>
               <Route path="/create" element={<CreateShop />}></Route>
+              <Route path="/create-product" element={<Create />}></Route>
               <Route path="/cart" element={<Cart />}></Route>
               <Route path="/user" element={<User />}></Route>
               <Route path="/product/:id" element={<Product />}></Route>
               <Route path="/register" element={<Register />}></Route>
               <Route path="/login" element={<Login />}></Route>
-              <Route path="/search" element={<Browse/>}></Route>
+              <Route path="/search" element={<Browse />}></Route>
               <Route path="*" element={<Error />}></Route>
             </Routes>
           </ServerHostnameProvider>
