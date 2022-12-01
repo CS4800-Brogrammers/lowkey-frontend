@@ -34,7 +34,7 @@ const ShopInfoCard = (props) => {
     if(isLoading)
         return(
             <div>
-                <isLoading/>
+                <Loading/>
             </div>
 
         );
@@ -45,7 +45,7 @@ const ShopInfoCard = (props) => {
             </div>
         );
     return(
-        <div className= "row infoCard"> 
+        <div className= "infoCard"> 
             <div className="row">
                 {/* was col-5 originally when we had section for followers*/}
                 <div className= "col-7 shopName"> {shopInfo.name} </div>

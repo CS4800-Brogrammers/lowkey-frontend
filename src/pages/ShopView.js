@@ -1,79 +1,87 @@
 import axios from "axios";
 import { useParams} from "react-router-dom";
-import { Container, Row } from "react-bootstrap";
-import tempImg from "../images/image_placeholder.jpg";
+import { Container, Row, Col} from "react-bootstrap";
 import cupcakes from "../images/cupcakes.jpg";
-import Image from "react-bootstrap/Image";
+import React, {useState, useContext, useEffect} from 'react';
 import "./ShopView.css";
 import ShopInfoCard from "../components/ShopInfoCard";
+import ProductCard from "../components/ProductCard";
+import Error from "../components/Error";
+import Loading from "../components/Loading";
+import ServerHostnameContext from "../context/ServerHostnameContext";
 
 const ShopView = () => {
     const { id } = useParams();
+
+    const serverHostname = useContext(ServerHostnameContext);
+    const getShopUrl = `http://${serverHostname}:8000/shops/${id}/product/?format=json`;
+    
+    const [products, setProducts] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [errorMessage, setErrorMessage] = useState(null);
+
+    useEffect(() => {
+        axios
+          .get(getShopUrl)
+          .then((response) => {
+            setProducts(response.data);
+          })
+          .catch((error) => {
+            setErrorMessage(error.message);
+          })
+          .finally(() => setIsLoading(false));
+      }, [getShopUrl]);
+
+    if(isLoading)
+        return(
+            <div>
+                <Loading/>
+            </div>
+
+        );
+    else if(errorMessage)
+        return(
+            <div>
+                <Error/>
+            </div>
+        );
+
+
+    const productList = products.map((product, index) => {
+        return (
+          <Col key={index} className="px-2 pb-3" md="auto">
+            <ProductCard
+              key={index}
+              id={product["product_id"]}
+              title={product["product_name"]}
+              price={product["price"]}
+              rating={product["rating"]}
+              shop={product["shop"]}
+            />
+          </Col>
+        );
+      });
+    
     return(
-        <div className="shopContainer">
-            <div className="shopBanner">
+        <Container fluid className="shopContainer">
+            <Row className="shopBanner">
                 <img className="BannerImage" src= {cupcakes}/> 
                 <ShopInfoCard id= {id}></ShopInfoCard>
-            </div>     
-            <div className="announcements">
-               <div> 
-                    Announcements
-                    <div className="announceDetails"> - First bullet point</div>
-                    <div className="announceDetails"> - Second bullet point</div>
-               </div>
-            </div>
-            <div> </div>
-            <div className="products">
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-                <div > Bottom Half</div>
-            </div>
-        </div>
+            </Row>     
+            <Row className="announcements"> 
+                <Col xs = {3} className = "announcementsHeading">
+                    <h5>Announcement</h5>
+                </Col>
+                <Col xs = {9}>
+                    <div className="announceDetails"> Christmas sale start 12/1/22! Everything 10% off!</div>
+                    
+                </Col>
+                
+            </Row>
+            <Row className="products">
+              {productList}
+            </Row>
+        </Container>
 
     );
     

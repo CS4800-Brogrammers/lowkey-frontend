@@ -10,12 +10,15 @@ import {
   AiOutlineSearch,
 } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import './navbar.css';
+
+
 
 const LowkeyNavbar = () => {
   const [activePage, setActivePage] = useState("");
 
   return (
-    <Navbar expand="sm" className = "mb-4 pb-3 border-bottom">
+    <Navbar expand="sm" className = "pb-3" id = "nav">
       <Container>
         <Navbar.Brand 
         as={Link} 
