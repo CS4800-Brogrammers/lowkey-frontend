@@ -1,11 +1,9 @@
-
-import Card from 'react-bootstrap/Card';
-import React from 'react';
-import img1 from '../images/chocolate_cake.jpg'; 
+import Card from "react-bootstrap/Card";
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Container, Row, Col} from "react-bootstrap";
-import {Link, useParams} from "react-router-dom";
-import StarRating from './StarRating'
+import { Container, Row, Col } from "react-bootstrap";
+import { Link, useParams } from "react-router-dom";
+import StarRating from "./StarRating";
 import "./ProductCard.css";
 
 // import Product from '../pages/Product';
