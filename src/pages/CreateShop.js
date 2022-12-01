@@ -48,7 +48,7 @@ const CreateShop = () => {
             })
             .finally(() => {
                 setIsLoading(false);
-                // navigate('/');
+                navigate('/');
             });
         console.log(shopName);
         console.log(shopAddress);
