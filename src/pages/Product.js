@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import Error from "../components/Error";
@@ -13,12 +13,12 @@ import ServerHostnameContext from "../context/ServerHostnameContext";
 import "./Formats.css";
 const {
   mainContainer,
-  productImage,
   productHeader,
   productText,
   productRowSpacing,
   addToCartCounter,
   counterButton,
+  addToCartButton,
   button,
 } = styles;
 const Product = (props) => {
@@ -109,12 +109,8 @@ const Product = (props) => {
     <div className={mainContainer}>
       <Container className="mt-5">
         <Row>
-          <Col sm={6} className="d-flex align-items-center  ">
-            <img
-              className={productImage}
-              src={product.image}
-              alt="product"
-            ></img>
+          <Col sm={6} className="d-flex align-items-center">
+            <Image className="img-fluid" src={product.image} />
           </Col>
           <Col sm={6} className="d-flex align-items-center">
             <Container className={productText}>
@@ -122,9 +118,9 @@ const Product = (props) => {
                 <Row>{product.product_name}</Row> <Row>${product.price}</Row>
               </Row>
               <Row className={productRowSpacing}>Brogrammers</Row>
-              <StarRating />
+              <StarRating rating={product.rating} size={30} />
               <Row className={productRowSpacing}>
-                <Col>
+                <Col className="d-flex align-items-center justify-content-center">
                   <div className={addToCartCounter}>
                     <Button
                       variant="danger"
@@ -145,14 +141,12 @@ const Product = (props) => {
                     </Button>
                   </div>
                 </Col>
-                <Col>
+                <Col className={addToCartButton}>
                   <Button>Add to Cart</Button>
                 </Col>
               </Row>
               <Row className={productRowSpacing}>
-                <div className="textLineBreak">
-                  Desciption: {product.description}
-                </div>
+                Description: {product.description}
               </Row>
               {/* <Row>Extra Information</Row> */}
               {shop[0] && shop[0].shop_id === product.shop_id && (
