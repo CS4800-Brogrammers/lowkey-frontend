@@ -118,7 +118,7 @@ const Product = (props) => {
                 <Row>{product.product_name}</Row> <Row>${product.price}</Row>
               </Row>
               <Row className={productRowSpacing}>Brogrammers</Row>
-              <StarRating rating={product.rating} size={30} />
+              <StarRating rating={5} size={30} />
               <Row className={productRowSpacing}>
                 <Col className="d-flex align-items-center justify-content-center">
                   <div className={addToCartCounter}>

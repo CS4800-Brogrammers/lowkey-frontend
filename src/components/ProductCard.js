@@ -21,7 +21,7 @@ const ProductCard = (props) => {
               <Card.Text>{props.price}</Card.Text>
             </Col>
             <Col>
-              <StarRating rating="5" size={15} />
+              <StarRating rating="5" />
             </Col>
           </Row>
           <Card.Text>{props.shop}</Card.Text>
