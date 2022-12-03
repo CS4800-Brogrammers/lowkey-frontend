@@ -12,9 +12,8 @@ import ServerHostnameContext from "../context/ServerHostnameContext";
 
 const ShopView = () => {
     const { id } = useParams();
-
     const serverHostname = useContext(ServerHostnameContext);
-    const getShopUrl = `http://${serverHostname}:8000/shops/${id}/product/?format=json`;
+    const getUserShopURL = `http://${serverHostname}:8000/user/shops/?format=json`;
     
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -22,15 +21,22 @@ const ShopView = () => {
 
     useEffect(() => {
         axios
-          .get(getShopUrl)
-          .then((response) => {
+            .get(getUserShopURL, {
+                headers: {
+                    Authorization: localStorage.getItem("authTokens")
+                    ? "JWT " + JSON.parse(localStorage.getItem("authTokens")).access
+                    : null,
+                },
+            })
+            .then((response) => {
             setProducts(response.data);
-          })
-          .catch((error) => {
+            })
+            .catch((error) => {
             setErrorMessage(error.message);
-          })
-          .finally(() => setIsLoading(false));
-      }, [getShopUrl]);
+            })
+            .finally(() => setIsLoading(false));
+    }, [getUserShopURL]);
+    
 
     if(isLoading)
         return(

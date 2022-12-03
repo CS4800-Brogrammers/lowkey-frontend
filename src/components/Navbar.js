@@ -51,7 +51,7 @@ const LowkeyNavbar = () => {
           <Nav>
             <Nav.Link 
               as={Link} 
-              to="/Create" 
+              to="/create-shop" 
               onClick = {() => setActivePage("Create")} 
               className = {activePage === "Create" ? 'active' : 'inactive'}
               >

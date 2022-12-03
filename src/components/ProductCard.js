@@ -12,7 +12,7 @@ const ProductCard = (props) => {
     const productLink = `product/${props.id}`;
     return( 
         <Card className = 'cardWidth cardShadowHover'>
-            <Card.Img variant = "top" src = {img1} className = 'imgHeight'/>
+            <Card.Img variant="top" src={props.image} className="imgHeight" />
             <Card.Body className = "p-0">
                 <Container className = "p-0">
                     <Card.Title>{props.title}</Card.Title>
