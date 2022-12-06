@@ -149,33 +149,40 @@ const Browse = () => {
     } 
     return (
         // <div className="browse-page">
-            <div className="row browse-page">
+        <Container fluid>
+            <Row>
                 <div className="col-3 browse-border">
                     <div className= "row mb-3">
-                        Filters
+                    Filters
                     </div>
-                    <div className= "container mb-3">
-                        <div className= "row filterBarBottomLine">
-                            Price Range
-                            <PriceRange price= {price} setPrice = {setPrice} filterConfig={filterConfig} setFilterConfig={setFilterConfig}></PriceRange>
+                    <Row>
+                        <div className= "container mb-3">
+                            <div className= "row filterBarBottomLine">
+                                Price Range
+                                <PriceRange price= {price} setPrice = {setPrice} filterConfig={filterConfig} setFilterConfig={setFilterConfig}></PriceRange>
+                            </div>
+                            <div className= "row filterBarBottomLine">
+                                Rating
+                                {/* <BrowseStarRating starSize = {35} ratingColor= "#00A6A6" ></BrowseStarRating> */}
+                                {starFilter()}
+                                {/* "119DA4" */}
+                            </div>
                         </div>
-                        <div className= "row filterBarBottomLine">
-                            Rating
-                            {/* <BrowseStarRating starSize = {35} ratingColor= "#00A6A6" ></BrowseStarRating> */}
-                            {starFilter()}
-                            {/* "119DA4" */}
-                        </div>
-
-                    </div>
+                    </Row>
                     <Button onClick= {() => filterResult()}> Filter </Button>
-                </div>
-                <div className="col-6 browse-border results">
+                    </div>
+                <div className ="col-6">
                     {isresultFiltered ? filteredProductList : productList}
                 </div>
                 <div className="col-3">
                     <Map/>
                 </div>
-            </div>
+            </Row>
+           
+        </Container>
+           
+
+        
         // </div>
         // <div>
         //     <Map/>
