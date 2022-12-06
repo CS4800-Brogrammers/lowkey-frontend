@@ -7,26 +7,52 @@ import Error from "../components/Error";
 import Loading from "../components/Loading";
 import CategoryCard from "../components/CategoryCard";
 import ServerHostnameContext from "../context/ServerHostnameContext";
+import ShopCard from "../components/ShopCard";
 
 const Home = () => {
   const serverHostname = useContext(ServerHostnameContext);
   const productsURL = `http://${serverHostname}:8000/product/?format=json`;
+  const shopsURL = `http://${serverHostname}:8000/shops/?format=json`;
 
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
+  const [shops, setShops] = useState([]);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(productsURL)
+  //     .then((response) => {
+  //       setProducts(response.data);
+  //     })
+  //     .catch((error) => {
+  //       setErrorMessage(error.message);
+  //     })
+  //     .finally(() => setIsLoading(false));
+  // }, [productsURL]);
   useEffect(() => {
     axios
-      .get(productsURL)
-      .then((response) => {
-        setProducts(response.data);
-      })
+      .all([
+        axios.get(productsURL),
+        axios.get(shopsURL),
+      ])
+      .then(
+        axios.spread((response1, response2) => {
+          setProducts(response1.data);
+          setShops(response2.data);
+        })
+      )
       .catch((error) => {
         setErrorMessage(error.message);
       })
-      .finally(() => setIsLoading(false));
-  }, [productsURL]);
+      .finally(() => {
+        setIsLoading(false);
+        
+      });
+  }, [shopsURL, productsURL]);
+
+
 
   if (isLoading)
     return (
@@ -47,10 +73,24 @@ const Home = () => {
         <ProductCard
           key={index}
           id={product["product_id"]}
+          image={product["image"]}
           title={product["product_name"]}
           price={product["price"]}
           rating={product["rating"]}
           shop={product["shop"]}
+        />
+      </Col>
+    );
+  });
+  const shopsList = shops.map((shop, index) => {
+    return (
+      <Col key={index} className="px-2 pb-3" md="auto">
+        <ShopCard
+          key={index}
+          id={shop["shop_id"]}
+          image={shop["image"]}
+          title={shop["name"]}
+          rating={shop["rating"]}
         />
       </Col>
     );
@@ -64,6 +104,7 @@ const Home = () => {
     "Art",
     "Clothing",
   ];
+
   const categorySection = categories.map((category, index) => {
     return (
       <Col key={index} sm={6} className="p-0">
@@ -87,7 +128,7 @@ const Home = () => {
 
         <Col className="p-0 ms-5">
           <Row className="mb-2">Local Business Highlights</Row>
-          <Row>{productList}</Row>
+          <Row>{shopsList}</Row>
           <Row className="mb-2">Categories</Row>
           <Row>{categorySection}</Row>
         </Col>

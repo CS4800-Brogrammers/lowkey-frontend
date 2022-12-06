@@ -1,0 +1,40 @@
+ .shopContainer{
+    height: 100vh;
+    width:100%;
+  }
+  .announcements {
+    background-color: #e3e3e3;
+    /* height:15vh; */
+    /* border-style: solid;  */
+    padding-left: 2em;
+    padding-top: 1em;
+    padding-bottom: 1em; 
+    text-align: left;
+  }
+  .announcementsHeading {
+    vertical-align: middle;
+
+  }
+  h5 {
+    margin-bottom: 0
+  }
+
+  .products {
+    margin-top: 3em; 
+    padding: 0em 5em;
+
+  }
+  .shopBanner{
+    position: relative;
+  }
+  .BannerImage{
+    height: 45vh;
+    width: 100%;
+    padding: 0;
+    margin: 0; 
+    object-fit:cover; 
+    filter: brightness(80%);
+  }
+
+
+

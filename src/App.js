@@ -13,8 +13,10 @@ import Register from "./pages/Register";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./pages/Login";
 import { ServerHostnameProvider } from "./context/ServerHostnameContext";
+import ShopView from "./pages/ShopView";
 import CreateShop from "./pages/CreateShop";
 import Browse from "./pages/Browse";
+import CheckShop from "./pages/CheckShop";
 
 function App() {
   return (
@@ -25,16 +27,20 @@ function App() {
             <LowkeyNavbar />
             <Routes>
               <Route path="/" element={<Home />}></Route>
-              <Route path="/create" element={<CreateShop />}></Route>
+              <Route path="/create-shop" element={<CreateShop />}></Route>
+              <Route path="/create-product" element={<Create />}></Route>
               <Route path="/cart" element={<Cart />}></Route>
               <Route path="/user" element={<User />}></Route>
               <Route path="/product/:id" element={<Product />}></Route>
               <Route path="/register" element={<Register />}></Route>
               <Route path="/login" element={<Login />}></Route>
-              <Route path="/search" element={<Browse/>}></Route>
+              <Route path="/search" element={<Browse />}></Route>
               <Route path="*" element={<Error />}></Route>
+              <Route path="/shops/:id" element={<ShopView/>}></Route>
+              <Route path="/shops/:id/product/:id" element={<Product/>}></Route>
+              <Route path="/shop" element={<CheckShop/>}></Route>
             </Routes>
-          </ServerHostnameProvider>
+          </ServerHostnameProvider> 
         </AuthProvider>
       </Router>
     </div>
