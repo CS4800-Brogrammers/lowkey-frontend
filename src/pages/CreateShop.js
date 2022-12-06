@@ -97,7 +97,7 @@ const CreateShop = () => {
     );
 
   return (
-    <Container className="form p-5">
+    <Container className="forms p-5 mt-3">
       <Row className="mb-5">
         <h1>Create Your Shop</h1>
       </Row>

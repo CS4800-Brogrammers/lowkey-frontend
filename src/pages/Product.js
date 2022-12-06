@@ -95,27 +95,6 @@ const Product = () => {
 
 
 
-  // useEffect(() => {
-  //   axios
-  //     .get(getProductURL)
-  //     .then((response) => {
-  //       setProduct(response.data);
-  //       setShopID(product.shop_id);
-  //       console.log(shopID);
-  //       const getShopURL =  `http://${serverHostname}:8000/shops/${shopID}/?format=json`;
-  //       axios.get(getShopURL).then((response2) => {
-  //         this.setShop(response2.data);
-  //       }).catch((error) => {
-  //         setErrorMessage(error.message);
-  //       })
-  //     })
-  //     .catch((error) => {
-  //       setErrorMessage(error.message);
-  //     })
-  //     .finally(() => setIsLoading(false));
-  // }, [getProductURL]);
-
-
   if (isLoading)
     return (
       <div>

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import ServerHostnameContext from "../context/ServerHostnameContext";
 import { AiOutlineCloudUpload } from "react-icons/ai";
+import './CreateShop.css';
 
 const Create = () => {
   const serverHostname = useContext(ServerHostnameContext);
@@ -89,68 +90,68 @@ const Create = () => {
   }
 
   return (
-    <div>
-      <Container>
-        <Row>
-          <Col></Col>
-          <Col>
-            <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3">
-                <Form.Label> Product Name</Form.Label>
-                <Form.Control
-                  as="input"
-                  placeholder="Enter product name"
-                  id="name"
-                  value={formValue.name}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-              <Form.Label> Product Price </Form.Label>
+    <Container className="forms p-5 mt-3">
+     <Row className="mb-5">
+        <h1>Create a Product</h1>
+      </Row>
+      <Row>
+        <Form onSubmit={handleSubmit} >
+        <Form.Group className="mb-3">
+          <Form.Label> Product Name</Form.Label>
+          <Form.Control
+            as="input"
+            placeholder="Enter product name"
+            id="name"
+            value={formValue.name}
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Form.Label> Product Price </Form.Label>
 
-              <InputGroup className="mb-3">
-                <InputGroup.Text>$</InputGroup.Text>
-                <Form.Control
-                  aria-label="formProdPrice"
-                  id="price"
-                  value={formValue.price}
-                  onChange={handleChange}
-                />
-              </InputGroup>
+        <InputGroup className="mb-3">
+          <InputGroup.Text>$</InputGroup.Text>
+          <Form.Control
+            aria-label="formProdPrice"
+            id="price"
+            value={formValue.price}
+            onChange={handleChange}
+          />
+        </InputGroup>
 
-              <Form.Group className="mb-3">
-                <Form.Label> Product Description </Form.Label>
-                <Form.Control
-                  as="textarea"
-                  aria-label="With textarea"
-                  id="description"
-                  value={formValue.description}
-                  onChange={handleChange}
-                />
-              </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label> Product Description </Form.Label>
+          <Form.Control
+            as="textarea"
+            aria-label="With textarea"
+            id="description"
+            value={formValue.description}
+            onChange={handleChange}
+          />
+        </Form.Group>
 
-              <Form.Group className="mb-3" controlId="photos">
-                <Form.Label>Show off your product with photos</Form.Label>
-                <div className="upload" onClick={uploadPhotos}>
-                  <AiOutlineCloudUpload id="icon" size="30" />
-                  <p>Browse Files to Upload</p>
-                  <Form.Control
-                    ref={fileUpload}
-                    type="file"
-                    multiple
-                    hidden
-                    onChange={(e) => setProductPhotos(e.target.files)}
-                  />
-                </div>
-              </Form.Group>
+        <Form.Group className="mb-3" controlId="photos">
+          <Form.Label>Show off your product with photos</Form.Label>
+          <div className="upload" onClick={uploadPhotos}>
+            <AiOutlineCloudUpload id="icon" size="30" />
+            <p>Browse Files to Upload</p>
+            <Form.Control
+              ref={fileUpload}
+              type="file"
+              multiple
+              hidden
+              onChange={(e) => setProductPhotos(e.target.files)}
+            />
+          </div>
+        </Form.Group>
 
-              <Button variant="primary" type="submit">
-                Create
-              </Button>
-            </Form>
-          </Col>
-        </Row>
-      </Container>
-    </div>
+        <Button variant="primary" type="submit">
+          Create
+        </Button>
+        </Form>
+      </Row>
+
+    </Container>
+    
   );
 };
 
