@@ -70,7 +70,9 @@ const Register = () => {
     <div>
       <Container className="form">
         <Form onSubmit={handleSubmit}>
-          <Form.Label className="title">Register</Form.Label>
+          <Form.Label className="title">
+            <h1>Register</h1>
+          </Form.Label>
           <Form.Group className="mb-3">
             <Form.Label> Email </Form.Label>
             <Form.Control
