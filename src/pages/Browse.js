@@ -36,6 +36,7 @@ const Browse = () => {
                     price={product["price"]}
                     rating={product["rating"]}
                     shop={product["shop"]}
+                    image={product["image"]}
                 />
             </Col>
         );
@@ -50,6 +51,7 @@ const Browse = () => {
                     price={product["price"]}
                     rating={product["rating"]}
                     shop={product["shop"]}
+                    image={product["image"]}
                 />
             </Col>
         );
