@@ -21,7 +21,9 @@ const User = () => {
 
   return (
     <Container>
-      <Row>This is the user page</Row>
+      <Row className="d-flex justify-content-center mb-5">
+        This is the user page
+      </Row>
       <Row>
         <Button onClick={handleSubmit}>Logout</Button>
       </Row>
