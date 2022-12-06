@@ -11,7 +11,7 @@ import "./ProductCard.css";
 
 
 const ProductCard = (props) => {
-    const productLink = `product/${props.id}`;
+    const productLink = `/product/${props.id}`;
 
     return( 
         <Card className = 'cardWidth cardShadowHover'>
