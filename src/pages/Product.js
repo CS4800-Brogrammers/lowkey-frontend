@@ -11,6 +11,7 @@ import styles from "./Product.module.css";
 import Delete from "../components/Delete";
 import ServerHostnameContext from "../context/ServerHostnameContext";
 import "./Formats.css";
+import {Link} from 'react-router-dom';
 const {
   mainContainer,
   productImage,
@@ -21,7 +22,7 @@ const {
   counterButton,
   button,
 } = styles;
-const Product = (props) => {
+const Product = () => {
   const [product, setProduct] = useState(null);
   const [shop, setShop] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,12 +31,15 @@ const Product = (props) => {
   const [popup, setPopup] = useState(false);
   const [counter, setCounter] = useState(1);
   const [editCounter, setEditCounter] = useState(0);
-  const { id } = useParams();
+  const [shopLink, setShopLink] = useState();
 
+  const { id } = useParams();
   const navigate = useNavigate();
   const serverHostname = useContext(ServerHostnameContext);
   const getProductURL = `http://${serverHostname}:8000/product/${id}/?format=json`;
-  const getUserShopURL = `http://${serverHostname}:8000/user/shops/?format=json`;
+
+  console.log(getProductURL);
+  const getShopURL = `http://${serverHostname}:8000/user/shops/?format=json`;
   const deleteProductURL = `http://${serverHostname}:8000/product/${id}/`;
 
   const handleCancel = () => {
@@ -64,7 +68,7 @@ const Product = (props) => {
     axios
       .all([
         axios.get(getProductURL),
-        axios.get(getUserShopURL, {
+        axios.get(getShopURL, {
           headers: {
             Authorization: localStorage.getItem("authTokens")
               ? "JWT " + JSON.parse(localStorage.getItem("authTokens")).access
@@ -76,6 +80,8 @@ const Product = (props) => {
         axios.spread((response1, response2) => {
           setProduct(response1.data);
           setShop(response2.data);
+          setShopLink(`/shops/${response1.data.shop_id}`);
+          console.log(shopLink);
         })
       )
       .catch((error) => {
@@ -83,8 +89,32 @@ const Product = (props) => {
       })
       .finally(() => {
         setIsLoading(false);
+        
       });
-  }, [editCounter]);
+  }, [editCounter, getShopURL]);
+
+
+
+  // useEffect(() => {
+  //   axios
+  //     .get(getProductURL)
+  //     .then((response) => {
+  //       setProduct(response.data);
+  //       setShopID(product.shop_id);
+  //       console.log(shopID);
+  //       const getShopURL =  `http://${serverHostname}:8000/shops/${shopID}/?format=json`;
+  //       axios.get(getShopURL).then((response2) => {
+  //         this.setShop(response2.data);
+  //       }).catch((error) => {
+  //         setErrorMessage(error.message);
+  //       })
+  //     })
+  //     .catch((error) => {
+  //       setErrorMessage(error.message);
+  //     })
+  //     .finally(() => setIsLoading(false));
+  // }, [getProductURL]);
+
 
   if (isLoading)
     return (
@@ -105,6 +135,7 @@ const Product = (props) => {
       </div>
     );
   }
+
   return (
     <div className={mainContainer}>
       <Container className="mt-5">
@@ -121,7 +152,7 @@ const Product = (props) => {
               <Row className={productHeader}>
                 <Row>{product.product_name}</Row> <Row>${product.price}</Row>
               </Row>
-              <Row className={productRowSpacing}>Brogrammers</Row>
+              <Row className={productRowSpacing}><Link to = {shopLink}>{product.shop_name}</Link></Row>
               <StarRating />
               <Row className={productRowSpacing}>
                 <Col>
@@ -154,7 +185,6 @@ const Product = (props) => {
                   Desciption: {product.description}
                 </div>
               </Row>
-              {/* <Row>Extra Information</Row> */}
               {shop[0] && shop[0].shop_id === product.shop_id && (
                 <Row
                   className={`${productRowSpacing} d-flex justify-content-center`}

@@ -10,32 +10,49 @@ import Error from "../components/Error";
 import Loading from "../components/Loading";
 import ServerHostnameContext from "../context/ServerHostnameContext";
 
-const ShopView = () => {
-    const { id } = useParams();
+const ShopView = (props) => {
+    let {id} = useParams();
+    if(id == null){
+      id = props.id; 
+    } 
+    
     const serverHostname = useContext(ServerHostnameContext);
     const getUserShopURL = `http://${serverHostname}:8000/user/shops/?format=json`;
-    
+    const getProductURL = `http://${serverHostname}:8000/shops/${id}/product/?format=json`;
+
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState(null);
+   
+    const [shop, setShop] = useState(null);
 
     useEffect(() => {
         axios
-            .get(getUserShopURL, {
-                headers: {
-                    Authorization: localStorage.getItem("authTokens")
-                    ? "JWT " + JSON.parse(localStorage.getItem("authTokens")).access
-                    : null,
-                },
+          .all([
+            axios.get(getProductURL),
+            axios.get(getUserShopURL, {
+              headers: {
+                Authorization: localStorage.getItem("authTokens")
+                  ? "JWT " + JSON.parse(localStorage.getItem("authTokens")).access
+                  : null,
+              },
+            }),
+          ])
+          .then(
+            axios.spread((response1, response2) => {
+              setProducts(response1.data);
+              setShop(response2.data);
             })
-            .then((response) => {
-            setProducts(response.data);
-            })
-            .catch((error) => {
+          )
+          .catch((error) => {
             setErrorMessage(error.message);
-            })
-            .finally(() => setIsLoading(false));
-    }, [getUserShopURL]);
+          })
+          .finally(() => {
+            setIsLoading(false);
+            
+          });
+      }, []);
+    
     
 
     if(isLoading)
@@ -79,7 +96,7 @@ const ShopView = () => {
                     <h5>Announcement</h5>
                 </Col>
                 <Col xs = {9}>
-                    <div className="announceDetails"> Christmas sale start 12/1/22! Everything 10% off!</div>
+                    <div className="announceDetails"> Christmas sale starts 12/1/22! Everything 10% off!</div>
                     
                 </Col>
                 

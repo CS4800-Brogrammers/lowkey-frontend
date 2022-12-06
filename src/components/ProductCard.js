@@ -8,8 +8,11 @@ import "./ProductCard.css";
 
 // import Product from '../pages/Product';
 
+
+
 const ProductCard = (props) => {
     const productLink = `product/${props.id}`;
+
     return( 
         <Card className = 'cardWidth cardShadowHover'>
             <Card.Img variant="top" src={props.image} className="imgHeight" />
