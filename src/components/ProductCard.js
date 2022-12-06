@@ -24,7 +24,8 @@ const ProductCard = (props) => {
                             <Card.Text>{props.price}</Card.Text>
                         </Col>
                         <Col>
-                            <StarRating rating = "5" starSize= "15" ratingColor= "#ffc107"/>
+                            <StarRating rating = {props.rating}/>
+                            {/* <StarRating rating = "5" starSize= "15" ratingColor= "#ffc107"/> */}
                         </Col>
                     </Row>
                     <Card.Text>{props.shop}</Card.Text>

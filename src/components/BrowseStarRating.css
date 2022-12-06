@@ -1,0 +1,16 @@
+.starRatingOption{
+
+}
+.starRatingOption:hover{
+    background-color: rgb(202, 200, 200);
+}
+.starRatingOption:active{
+    background-color: rgb(129, 128, 128);
+    font-weight: bold;
+}
+/* .starRatingOption::before{
+    font-weight: normal;
+}
+.starRatingOption::after{
+    font-weight: normal;
+} */
