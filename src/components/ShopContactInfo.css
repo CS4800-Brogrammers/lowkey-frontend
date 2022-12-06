@@ -1,0 +1,23 @@
+
+.bottomLine{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+.btn-icon{
+    position: relative;
+    padding: 0px;
+}
+.contactButton{
+    background-color: transparent;
+    border-color: transparent;
+    height: 45px;
+    width: 45px;
+    
+}
+.contactButton:hover{
+    background-color: rgb(172, 168, 168);
+    border-color: transparent;
+}
+.contactButton:active{
+    background-color: rgb(129, 128, 128) !important;
+    border-color: transparent !important;
+}

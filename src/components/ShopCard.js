@@ -6,13 +6,12 @@ import { Link, useParams } from "react-router-dom";
 import StarRating from "./StarRating";
 import "./ProductCard.css";
 
-// import Product from '../pages/Product';
 
 
 
-const ProductCard = (props) => {
-    const productLink = `product/${props.id}`;
 
+const ShopCard = (props) => {
+    const productLink = `shops/${props.id}`;
     return( 
         <Card className = 'cardWidth cardShadowHover'>
             <Card.Img variant="top" src={props.image} className="imgHeight" />
@@ -20,12 +19,7 @@ const ProductCard = (props) => {
                 <Container className = "p-0">
                     <Card.Title>{props.title}</Card.Title>
                     <Row>
-                        <Col className = "me-1">
-                            <Card.Text>{props.price}</Card.Text>
-                        </Col>
-                        <Col>
-                            <StarRating rating = "5" starSize= "15" ratingColor= "#ffc107"/>
-                        </Col>
+                        <StarRating rating = "5" starSize= "15" ratingColor= "#ffc107"/>
                     </Row>
                     <Card.Text>{props.shop}</Card.Text>
                 </Container>
@@ -35,4 +29,4 @@ const ProductCard = (props) => {
     );
 };
 
-export default ProductCard;
+export default ShopCard;
